@@ -5,9 +5,26 @@
 body{
     width: 100vw;
     height: 100vh;
+    background-color: #18191A;
 }
 
 #root{
     width: 100vw;
     height: 100vh;
+}
+
+.color-yellow{
+    color: #fdc500;
+}
+
+#loginButton:hover, #registerButton:hover{
+    background-color: #ffd500;
+}
+
+.color-black{
+    color: #18191A;
+}
+
+.button-color{
+    background-color: #fdc500;
 }
