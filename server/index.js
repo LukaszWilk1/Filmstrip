@@ -1,12 +1,13 @@
 import express from "express";
 import pg from "pg";
+import "dotenv/config"
 
 const db = new pg.Client({
-    user: "postgres",
-    host: "localhost",
-    database: "filmstrip",
-    password: "Kenough321",
-    port: 5432,
+    user: 'postgres',
+    host: 'localhost',
+    database: 'filmstrip',
+    password: process.env.DATABASE_PASSWORD,
+    port: process.env.DATABASE_PORT,
 });
 
 db.connect();
