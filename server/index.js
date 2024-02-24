@@ -32,7 +32,14 @@ app.use(bodyParser.json());
 
 app.post("/register", (req, res) => {
     console.log(req.body);
-    res.send("data recived succesfully!");
+    db.query("Select login FROM users", (err, resDb) => {
+        if(err){
+            console.log("Error: ", err.stack);
+        } else {
+            console.log("user data: ", resDb.rows);
+            if(resDb.rows.find(dbLogin => dbLogin.login === req.body.login)) console.log("WRONG LOGIN!");
+        }
+    })
 })
 
 app.listen(port, () => {
