@@ -13,6 +13,10 @@ body{
     height: 100vh;
 }
 
+#register{
+    border: 1px solid #fdc500;
+}
+
 .color-yellow{
     color: #fdc500;
 }
