@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 const Register = prop => {
@@ -14,6 +14,7 @@ const Register = prop => {
 
     const [areInputsEmpty, setAreInputsEmpty] = useState(false);
     const [arePasswordsDifferent, setArePasswordsDifferent] = useState(false);
+    const [isLoginTaken, setIsLoginTaken] = useState(false);
 
     const handleBackClick = () => {
         navigate("/login");
@@ -22,11 +23,35 @@ const Register = prop => {
     const handleRegisterClick = () => {
 
       if(regiserData.login !== '' && regiserData.password !== '' && regiserData.repeatedPassword !==''){
+        setAreInputsEmpty(false);
         if(regiserData.password===regiserData.repeatedPassword){
+          document.getElementById("login").disabled=true;
+          document.getElementById("password").disabled=true;
+          document.getElementById("repeatedPassword").disabled=true;
+          document.getElementById("registerButton").disabled=true;
+          document.getElementById("backButton").disabled=true;
           setArePasswordsDifferent(false);
           axios.post('http://localhost:3001/register', {...regiserData})
-          .then(function (response) {
-            console.log(response.data);
+          .then(response => {
+            if(response.data.isLoginTaken){
+              console.log(regiserData);
+              setIsLoginTaken(true);
+            } else if(!response.data.isLoginTaken){
+              setIsLoginTaken(false);
+              document.getElementById("login").disabled=false;
+              document.getElementById("password").disabled=false;
+              document.getElementById("repeatedPassword").disabled=false;
+              document.getElementById("registerButton").disabled=false;
+              document.getElementById("backButton").disabled=false;
+              document.getElementById("login").value='';
+              document.getElementById("password").value='';
+              document.getElementById("repeatedPassword").value='';
+              setRegisterData({
+                login: '',
+                password: '',
+                repeatedPassword: '',
+              });
+            } 
           })
           .catch(function (error) {
             console.log(error);
@@ -63,7 +88,7 @@ const Register = prop => {
       <div>
         <label htmlFor="email" className="block text-sm font-medium leading-6 color-yellow">Login</label>
         <div className="mt-2">
-          <input htmlFor="login" name="login" value={regiserData.login} onChange={handleInputChange} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"></input>
+          <input id="login" htmlFor="login" name="login" value={regiserData.login} onChange={handleInputChange} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"></input>
         </div>
       </div>
 
@@ -88,6 +113,7 @@ const Register = prop => {
       <div>
         {areInputsEmpty ? <p className="text-red-600 text-center">You must enter data into all fields!</p> : <></>}
         {arePasswordsDifferent ? <p className="text-red-600 text-center">Passwords are not the same!</p> : <></>}
+        {isLoginTaken ? <p className="text-red-600 text-center">Login is taken! Please choose somthing else</p> : <></>}
       </div>
 
       <div>

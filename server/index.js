@@ -30,14 +30,18 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
-app.post("/register", (req, res) => {
+app.post("/register", async (req, res) => {
     console.log(req.body);
-    db.query("Select login FROM users", (err, resDb) => {
+    await db.query("Select login FROM users", (err, resDb) => {
         if(err){
             console.log("Error: ", err.stack);
         } else {
             console.log("user data: ", resDb.rows);
-            if(resDb.rows.find(dbLogin => dbLogin.login === req.body.login)) console.log("WRONG LOGIN!");
+            if(resDb.rows.find(dbLogin => dbLogin.login === req.body.login)){
+                res.send({isLoginTaken: true});
+            } else {
+                res.send({isLoginTaken: false});
+            }
         }
     })
 })
