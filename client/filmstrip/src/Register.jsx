@@ -33,16 +33,15 @@ const Register = prop => {
           setArePasswordsDifferent(false);
           axios.post('http://localhost:3001/register', {...regiserData})
           .then(response => {
-            if(response.data.isLoginTaken){
-              console.log(regiserData);
-              setIsLoginTaken(true);
-            } else if(!response.data.isLoginTaken){
-              setIsLoginTaken(false);
-              document.getElementById("login").disabled=false;
+            document.getElementById("login").disabled=false;
               document.getElementById("password").disabled=false;
               document.getElementById("repeatedPassword").disabled=false;
               document.getElementById("registerButton").disabled=false;
               document.getElementById("backButton").disabled=false;
+            if(response.data.isLoginTaken){
+              setIsLoginTaken(true);
+            } else if(!response.data.isLoginTaken){
+              setIsLoginTaken(false);
               document.getElementById("login").value='';
               document.getElementById("password").value='';
               document.getElementById("repeatedPassword").value='';

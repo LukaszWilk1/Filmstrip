@@ -1,7 +1,8 @@
 import express from "express";
 import pg from "pg";
 import bodyParser from "body-parser";
-import cors from "cors"
+import cors from "cors";
+import bcrypt from "bcrypt";
 import "dotenv/config"
 
 const db = new pg.Client({
@@ -14,13 +15,8 @@ const db = new pg.Client({
 
 db.connect();
 
-db.query("Select * FROM users", (err, res) => {
-    if(err){
-        console.log("Error: ", err.stack);
-    } else {
-        console.log("user data: ", res.rows);
-    }
-})
+const saltRounds = 10;
+const myPlaintextPassword = 's0/\/\P4$$w0rD';
 
 const port = 3001;
 
@@ -31,15 +27,20 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post("/register", async (req, res) => {
-    console.log(req.body);
     await db.query("Select login FROM users", (err, resDb) => {
         if(err){
             console.log("Error: ", err.stack);
         } else {
-            console.log("user data: ", resDb.rows);
             if(resDb.rows.find(dbLogin => dbLogin.login === req.body.login)){
                 res.send({isLoginTaken: true});
             } else {
+                bcrypt.hash(myPlaintextPassword, saltRounds, async (err, hash) => {
+                    if(err){
+                        console.log(err.message);
+                    } else {
+                        db.query("INSERT INTO users (login, user_password) VALUES ($1, $2)", [req.body.login, hash]);
+                    }
+                })
                 res.send({isLoginTaken: false});
             }
         }
