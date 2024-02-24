@@ -11,8 +11,25 @@ const Register = prop => {
       repeatedPassword: '',
     });
 
+    const [areInputsEmpty, setAreInputsEmpty] = useState(false);
+    const [arePasswordsDifferent, setArePasswordsDifferent] = useState(false);
+
     const handleBackClick = () => {
         navigate("/login");
+    }
+
+    const handleRegisterClick = () => {
+
+      if(regiserData.login !== '' && regiserData.password !== '' && regiserData.repeatedPassword !==''){
+        if(regiserData.password===regiserData.repeatedPassword){
+          setArePasswordsDifferent(false);
+        } else {
+          setAreInputsEmpty(false);
+          setArePasswordsDifferent(true);
+        }
+      } else {
+        setAreInputsEmpty(true);
+      }
     }
 
     const handleInputChange = e => {
@@ -60,7 +77,12 @@ const Register = prop => {
       </div>
 
       <div>
-        <button id="registerButton" type="submit" class="flex w-full justify-center rounded-md button-color px-3 py-1.5 text-sm font-semibold leading-6 color-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Register</button>
+        {areInputsEmpty ? <p className="text-red-600 text-center">You must enter data into all fields!</p> : <></>}
+        {arePasswordsDifferent ? <p className="text-red-600 text-center">Passwords are not the same!</p> : <></>}
+      </div>
+
+      <div>
+        <button id="registerButton" type="submit" class="flex w-full justify-center rounded-md button-color px-3 py-1.5 text-sm font-semibold leading-6 color-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" onClick={handleRegisterClick}>Register</button>
       </div>
       <div>
         <button id="backButton" type="button" class="flex w-full justify-center rounded-md button-color px-3 py-1.5 text-sm font-semibold leading-6 color-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" onClick={handleBackClick}>Back</button>
