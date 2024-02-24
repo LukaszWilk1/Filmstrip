@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 const Register = prop => {
 
@@ -23,6 +24,15 @@ const Register = prop => {
       if(regiserData.login !== '' && regiserData.password !== '' && regiserData.repeatedPassword !==''){
         if(regiserData.password===regiserData.repeatedPassword){
           setArePasswordsDifferent(false);
+          axios.post('http://localhost:3001/register', {...regiserData})
+          .then(function (response) {
+            console.log(response.data);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+          console.log(regiserData);
         } else {
           setAreInputsEmpty(false);
           setArePasswordsDifferent(true);
