@@ -41,6 +41,7 @@ const Register = prop => {
             if(response.data.isLoginTaken){
               setIsLoginTaken(true);
             } else if(!response.data.isLoginTaken){
+              navigate("/");
               setIsLoginTaken(false);
               document.getElementById("login").value='';
               document.getElementById("password").value='';
