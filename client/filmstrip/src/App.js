@@ -4,9 +4,11 @@ import PrivateRoute from './PirvateRoute';
 import Login from './Login';
 import Home from './Home';
 import Register from './Register';
+import { AuthProvider } from './auth';
 
 function App() {
   return (
+    <AuthProvider>
     <BrowserRouter>
       <Routes>
         <Route element={<PrivateRoute/>}>
@@ -16,6 +18,7 @@ function App() {
         <Route path="/login" element={<Login/>}/>
       </Routes>
     </BrowserRouter>
+    </AuthProvider>
   );
 }
 

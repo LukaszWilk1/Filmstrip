@@ -41,7 +41,7 @@ app.post("/register", async (req, res) => {
                         db.query("INSERT INTO users (login, user_password) VALUES ($1, $2)", [req.body.login, hash]);
                     }
                 })
-                res.send({isLoginTaken: false});
+                res.send({isLoginTaken: false, login: req.body.login});
             }
         }
     })

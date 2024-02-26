@@ -1,6 +1,13 @@
+import { useAuth } from "./auth";
+
 const Home = () => {
+
+    const auth = useAuth();
+
     return (
-        <h1>Home</h1>
+        <div>
+            <button onClick={auth.logout}>Logout</button>
+        </div>
     )
 }
 
