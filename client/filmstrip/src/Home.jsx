@@ -1,5 +1,6 @@
 import { useAuth } from "./auth";
 import { Footer } from "./Footer";
+import { Navbar } from "./Navbar";
 
 const Home = () => {
 
@@ -7,6 +8,7 @@ const Home = () => {
 
     return (
         <div id="home" className="w-full h-full">
+            <Navbar/>
             <button onClick={auth.logout}>Logout</button>
             <Footer/>
         </div>

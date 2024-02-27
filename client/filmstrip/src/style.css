@@ -23,6 +23,10 @@ body{
 
 }
 
+.yellow-background{
+    background-color: #ffd500;
+}
+
 .color-yellow{
     color: #fdc500;
 }
