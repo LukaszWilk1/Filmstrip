@@ -30,14 +30,20 @@ app.post("/login", async (req, res) => {
         if(err){
             console.log("Error: ", err.stack);
         } else {
-            console.log(resDb.rows);
-            bcrypt.compare(req.body.password, resDb.rows[0].user_password).then(result => {
-                if(result){
-                    res.send({login: req.body.login, isPasswordCorrect: true});
-                } else {
-                    res.send({isPasswordCorrect: false});
-                }
-            })
+            console.log("Data: ", resDb.rows);
+            const dataRows = resDb.rows;
+
+            if(dataRows.length !== 0){
+                bcrypt.compare(req.body.password, dataRows[0].user_password).then(result => {
+                    if(result){
+                        res.send({login: req.body.login, isPasswordCorrect: true});
+                    } else {
+                        res.send({isPasswordCorrect: false});
+                    }
+                });
+            } else{
+                res.send({wrongUser: true});
+            }
         }
     })
 })

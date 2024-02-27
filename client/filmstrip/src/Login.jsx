@@ -13,6 +13,7 @@ const Login = () => {
     });
     const [areInputsEmpty, setAreInputsEmpty] = useState(false);
     const [isPasswordWrong, setIsPasswordWrong] = useState(false);
+    const [wrongUser, setWrongUser] = useState(false);
 
     const navigate = useNavigate();
 
@@ -41,12 +42,17 @@ const Login = () => {
             document.getElementById("password").disabled=false;
             document.getElementById("loginButton").disabled=false;
             document.getElementById("registerButton").disabled=false;
-            if(!response.data.isPasswordCorrect) setIsPasswordWrong(true);
-            else{
-              setIsPasswordWrong(false);
-              auth.login(response.data.login);
-              window.localStorage.setItem("isLoggedIn", response.data.login);
-              navigate("/");
+            if(!response.data.wrongUser){
+              setWrongUser(false);
+              if(!response.data.isPasswordCorrect) setIsPasswordWrong(true);
+              else{
+                setIsPasswordWrong(false);
+                auth.login(response.data.login);
+                window.localStorage.setItem("isLoggedIn", response.data.login);
+                navigate("/");
+              }
+            } else {
+              setWrongUser(true);
             }
           })
           .catch(function (error) {
@@ -88,6 +94,7 @@ const Login = () => {
       <div>
         {areInputsEmpty ? <p className="text-red-600 text-center">You must enter data into all fields!</p> : <></>}
         {isPasswordWrong ? <p className="text-red-600 text-center">Wrong password!</p> : <></>}
+        {wrongUser ? <p className="text-red-600 text-center">There is no user with this login!</p> : <></>}
       </div>
 
       <div>
