@@ -7,7 +7,6 @@ export const AuthProvider = ({ children }) => {
         const storedUser = window.localStorage.getItem("isLoggedIn");
         return storedUser ? storedUser : null; // Sparsowanie wartości z localStorage
     });
-    console.log("Auth Auth: ", user);
 
     const login = user => {
         setUser(user);
