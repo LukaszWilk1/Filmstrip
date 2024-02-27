@@ -27,6 +27,10 @@ body{
     background-color: #ffd500;
 }
 
+.yellow-button-clicked{
+    background-color: #b29500;
+}
+
 .color-yellow{
     color: #fdc500;
 }
