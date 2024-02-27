@@ -13,7 +13,7 @@ body{
     height: 100vh;
 }
 
-#register{
+#register, #login{
     border: 1px solid #fdc500;
 }
 
