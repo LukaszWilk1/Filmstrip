@@ -6,7 +6,8 @@ const Login = prop => {
     const [loginData, setLoginData] = useState({
       login: '',
       password: '',
-    })
+    });
+    const [areInputsEmpty, setAreInputsEmpty] = useState(false);
 
     const navigate = useNavigate();
 
@@ -20,11 +21,19 @@ const Login = prop => {
           [name]: value,
         };
       });
+    };
+
+    const handleLoginClick = () => {
+      if(loginData.login !== '' && loginData.password !== ''){
+        setAreInputsEmpty(false);
+      } else {
+        setAreInputsEmpty(true);
+      }
     }
 
     const handleRegisterClick = () => {
         navigate("/register");
-    }
+    };
 
     return (
 <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -51,7 +60,11 @@ const Login = prop => {
       </div>
 
       <div>
-        <button id="loginButton" type="button" class="flex w-full justify-center rounded-md button-color px-3 py-1.5 text-sm font-semibold leading-6 color-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Log in</button>
+        {areInputsEmpty ? <p className="text-red-600 text-center">You must enter data into all fields!</p> : <></>}
+      </div>
+
+      <div>
+        <button id="loginButton" type="button" class="flex w-full justify-center rounded-md button-color px-3 py-1.5 text-sm font-semibold leading-6 color-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" onClick={handleLoginClick}>Log in</button>
       </div>
       <div>
         <button id="registerButton" type="button" class="flex w-full justify-center rounded-md button-color px-3 py-1.5 text-sm font-semibold leading-6 color-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" onClick={handleRegisterClick}>Register</button>
