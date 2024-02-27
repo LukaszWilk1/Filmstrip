@@ -26,6 +26,10 @@ const Login = prop => {
     const handleLoginClick = () => {
       if(loginData.login !== '' && loginData.password !== ''){
         setAreInputsEmpty(false);
+        document.getElementById("loginInput").disabled=true;
+        document.getElementById("password").disabled=true;
+        document.getElementById("loginButton").disabled=true;
+        document.getElementById("registerButton").disabled=true;
       } else {
         setAreInputsEmpty(true);
       }

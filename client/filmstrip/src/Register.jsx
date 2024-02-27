@@ -29,7 +29,7 @@ const Register = prop => {
       if(regiserData.login !== '' && regiserData.password !== '' && regiserData.repeatedPassword !==''){
         setAreInputsEmpty(false);
         if(regiserData.password===regiserData.repeatedPassword){
-          document.getElementById("login").disabled=true;
+          document.getElementById("loginInput").disabled=true;
           document.getElementById("password").disabled=true;
           document.getElementById("repeatedPassword").disabled=true;
           document.getElementById("registerButton").disabled=true;
@@ -94,7 +94,7 @@ const Register = prop => {
       <div>
         <label htmlFor="email" className="block text-sm font-medium leading-6 color-yellow">Login</label>
         <div className="mt-2">
-          <input id="login" htmlFor="login" name="login" value={regiserData.login} onChange={handleInputChange} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"></input>
+          <input id="loginInput" htmlFor="login" name="login" value={regiserData.login} onChange={handleInputChange} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"></input>
         </div>
       </div>
 
