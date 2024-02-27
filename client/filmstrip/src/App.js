@@ -1,6 +1,24 @@
+import React from 'react';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import PrivateRoute from './PirvateRoute';
+import Login from './Login';
+import Home from './Home';
+import Register from './Register';
+import { AuthProvider } from './auth';
+
 function App() {
   return (
-    <h1 className="font-bold text-gray-700 text-5xl">Hello, World!</h1>
+    <AuthProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<PrivateRoute/>}>
+          <Route path="/" element={<Home/>}/>
+        </Route>
+        <Route path="/register" element={<Register/>}/> 
+        <Route path="/login" element={<Login/>}/>
+      </Routes>
+    </BrowserRouter>
+    </AuthProvider>
   );
 }
 
