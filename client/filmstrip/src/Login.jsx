@@ -1,13 +1,18 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "./auth.jsx";
+import axios from "axios";
 
-const Login = prop => {
+const Login = () => {
+
+    const auth = useAuth();
 
     const [loginData, setLoginData] = useState({
       login: '',
       password: '',
     });
     const [areInputsEmpty, setAreInputsEmpty] = useState(false);
+    const [isPasswordWrong, setIsPasswordWrong] = useState(false);
 
     const navigate = useNavigate();
 
@@ -30,6 +35,23 @@ const Login = prop => {
         document.getElementById("password").disabled=true;
         document.getElementById("loginButton").disabled=true;
         document.getElementById("registerButton").disabled=true;
+        axios.post('http://localhost:3001/login', {...loginData})
+          .then(response => {
+            document.getElementById("loginInput").disabled=false;
+            document.getElementById("password").disabled=false;
+            document.getElementById("loginButton").disabled=false;
+            document.getElementById("registerButton").disabled=false;
+            if(!response.data.isPasswordCorrect) setIsPasswordWrong(true);
+            else{
+              setIsPasswordWrong(false);
+              auth.login(response.data.login);
+              window.localStorage.setItem("isLoggedIn", response.data.login);
+              navigate("/");
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
       } else {
         setAreInputsEmpty(true);
       }
@@ -65,6 +87,7 @@ const Login = prop => {
 
       <div>
         {areInputsEmpty ? <p className="text-red-600 text-center">You must enter data into all fields!</p> : <></>}
+        {isPasswordWrong ? <p className="text-red-600 text-center">Wrong password!</p> : <></>}
       </div>
 
       <div>

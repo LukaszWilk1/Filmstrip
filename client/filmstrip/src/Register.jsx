@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useAuth } from "./auth";
 
@@ -36,8 +36,8 @@ const Register = prop => {
           document.getElementById("backButton").disabled=true;
           setArePasswordsDifferent(false);
           axios.post('http://localhost:3001/register', {...regiserData})
-          .then(async response => {
-            document.getElementById("login").disabled=false;
+          .then(response => {
+            document.getElementById("loginInput").disabled=false;
               document.getElementById("password").disabled=false;
               document.getElementById("repeatedPassword").disabled=false;
               document.getElementById("registerButton").disabled=false;
@@ -45,8 +45,8 @@ const Register = prop => {
             if(response.data.isLoginTaken){
               setIsLoginTaken(true);
             } else if(!response.data.isLoginTaken){
-              await auth.login(response.data.login);
-              await window.localStorage.setItem("isLoggedIn", response.data.login);
+              auth.login(response.data.login);
+              window.localStorage.setItem("isLoggedIn", response.data.login);
               navigate("/");
               setIsLoginTaken(false);
               document.getElementById("login").value='';

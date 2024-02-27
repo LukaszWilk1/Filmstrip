@@ -16,7 +16,6 @@ const db = new pg.Client({
 db.connect();
 
 const saltRounds = 10;
-const myPlaintextPassword = 's0/\/\P4$$w0rD';
 
 const port = 3001;
 
@@ -26,6 +25,23 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
+app.post("/login", async (req, res) => {
+    await db.query("Select user_password FROM users WHERE login LIKE $1", [req.body.login], (err, resDb) => {
+        if(err){
+            console.log("Error: ", err.stack);
+        } else {
+            console.log(resDb.rows);
+            bcrypt.compare(req.body.password, resDb.rows[0].user_password).then(result => {
+                if(result){
+                    res.send({login: req.body.login, isPasswordCorrect: true});
+                } else {
+                    res.send({isPasswordCorrect: false});
+                }
+            })
+        }
+    })
+})
+
 app.post("/register", async (req, res) => {
     await db.query("Select login FROM users", (err, resDb) => {
         if(err){
@@ -34,7 +50,7 @@ app.post("/register", async (req, res) => {
             if(resDb.rows.find(dbLogin => dbLogin.login === req.body.login)){
                 res.send({isLoginTaken: true});
             } else {
-                bcrypt.hash(myPlaintextPassword, saltRounds, async (err, hash) => {
+                bcrypt.hash(req.body.password, saltRounds, async (err, hash) => {
                     if(err){
                         console.log(err.message);
                     } else {
