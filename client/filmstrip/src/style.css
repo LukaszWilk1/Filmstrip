@@ -17,6 +17,12 @@ body{
     border: 1px solid #fdc500;
 }
 
+#footer{
+    color: #2f2f30;
+    border-top: 1px solid #2f2f30;
+
+}
+
 .color-yellow{
     color: #fdc500;
 }
