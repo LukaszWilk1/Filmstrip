@@ -9,7 +9,7 @@ const Home = () => {
     return (
         <div id="home" className="w-full h-full">
             <Navbar/>
-            
+                <h1>TRENDING MOVIES</h1>
             <Footer/>
         </div>
     )
