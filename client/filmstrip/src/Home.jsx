@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "./auth";
 import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
+import { Link } from "react-router-dom";
 
 const options = {
     method: 'GET',
@@ -12,13 +12,11 @@ const options = {
   };
 
   const Home = () => {
-    const auth = useAuth();
     const imgSrc = 'https://image.tmdb.org/t/p/original/';
 
     const [trendingMovies, setTrendingMovies] = useState([]);
 
     useEffect(() => {
-        let moviesList = [];
         fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)
         .then(response => response.json())
         .then(response => {
@@ -32,10 +30,12 @@ const options = {
             <Navbar />
             <h1 className="text-[#ffd500] text-center text-[4rem]">TRENDING MOVIES</h1>
             <div id="trendingMovies" className="grid grid-cols-4 w-full p-12 gap-2">
-                {trendingMovies.map(movie => (
-                    <div key={movie.id} id={movie.id} className="">
+                {trendingMovies.map((movie, index) => (
+                    <Link key={index} to={"/movie/" + movie.id}>
+                    <div key={index} id={movie.id} className="">
                         <img src={imgSrc + movie.poster_path} alt={movie.title} className="w-full"/>
                     </div>
+                    </Link>
                 ))}
             </div>
             <Footer />
