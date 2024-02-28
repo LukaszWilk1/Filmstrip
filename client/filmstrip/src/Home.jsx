@@ -9,7 +9,7 @@ const Home = () => {
     return (
         <div id="home" className="w-full h-full">
             <Navbar/>
-            <button onClick={auth.logout}>Logout</button>
+            
             <Footer/>
         </div>
     )

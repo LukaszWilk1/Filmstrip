@@ -2,7 +2,8 @@ import { Fragment } from 'react'
 import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { NavLink } from 'react-router-dom'
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
+import { useAuth } from './auth';
 
 const navigation = [
   { name: 'Home', href: '/', current: false },
@@ -16,6 +17,8 @@ function classNames(...classes) {
 }
 
 export const Navbar = () => {
+
+  const auth = useAuth();
 
   const location = useLocation();
 
@@ -68,6 +71,11 @@ export const Navbar = () => {
                   </div>
                 </div>
               </div>
+
+              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <button onClick={auth.logout}>Logout</button>
+              </div>
+
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 Hello User!
               </div>
