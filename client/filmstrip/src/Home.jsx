@@ -14,6 +14,7 @@ const options = {
 const Home = () => {
 
     const auth = useAuth();
+    const imgSrc = 'https://image.tmdb.org/t/p/w185/';
 
     const [trendingMovies, setTrendingMovies] = useState([]);
 
@@ -31,7 +32,10 @@ const Home = () => {
         <div id="home" className="w-full h-full">
             <Navbar/>
                 <h1 className="text-[#ffd500] text-center text-[4rem]">TRENDING MOVIES</h1>
-                {trendingMovies.map(movie => (<div key={movie.id} id={movie.id}></div>))}
+                <div id="trendingMovies">
+
+                </div>
+                {trendingMovies.map(movie => (<div key={movie.id} id={movie.id}><img src={imgSrc+movie.poster_path}></img></div>))}
             <Footer/>
         </div>
     )
