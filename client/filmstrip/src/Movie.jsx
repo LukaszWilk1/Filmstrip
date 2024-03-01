@@ -30,11 +30,11 @@ const Movie = () => {
     return (
         <div>
           <Navbar />
-          <div id="movie/series component" className="grid grid-cols-2 py-8">
-            <div className="w-full pe-4">
-              {movieData && <img src={imgSrc + movieData.poster_path} alt={movieData.title} className="w-[50%] mx-auto" />}
+          <div id="movie/series component" className="grid grid-cols-3 py-8">
+            <div className="pe-4">
+              {movieData && <img src={imgSrc + movieData.poster_path} alt={movieData.title} className="w-[75%] mx-auto" />}
             </div>
-            <div className="w-full ml-auto">
+            <div className="col-span-2 mr-auto">
               <h1 className="text-[#ffd500] text-[3.5rem]">{movieData && movieData.title}</h1>
             </div>
           </div>
