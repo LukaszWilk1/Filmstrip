@@ -1,5 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Navbar } from "./Navbar";
+import { Footer } from "./Footer";
 
 const options = {
     method: 'GET',
@@ -9,22 +11,37 @@ const options = {
     }
   };
   
-  
+  const imgSrc = 'https://image.tmdb.org/t/p/original/';
 
 const Movie = () => {
 
     const params = useParams();
+    const [movieData, setMovieData] = useState();
 
     useEffect(() => {
         fetch(`https://api.themoviedb.org/3/movie/${params.movieId}?language=en-US`, options)
             .then(response => response.json())
-            .then(response => console.log(response))
+            .then(response => setMovieData(response))
             .catch(err => console.error(err));
-    }, [])
+    }, []);
 
-    return(
-        <h1>Movie id: {params.movieId}</h1>
-    )
+    console.log(movieData);
+
+    return (
+        <div>
+          <Navbar />
+          <div id="movie/series component" className="grid grid-cols-2 py-8">
+            <div className="w-full pe-4">
+              {movieData && <img src={imgSrc + movieData.poster_path} alt={movieData.title} className="w-[50%] mx-auto" />}
+            </div>
+            <div className="w-full ml-auto">
+              <h1 className="text-[#ffd500] text-[3.5rem]">{movieData && movieData.title}</h1>
+            </div>
+          </div>
+          <Footer />
+        </div>
+      );
+      
 }
 
 export default Movie;
