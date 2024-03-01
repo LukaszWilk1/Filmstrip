@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
-import { Link } from "react-router-dom";
 import Panel from "./Panel";
 
 const options = {
@@ -31,9 +30,7 @@ const options = {
             <h1 className="text-[#ffd500] text-center text-[4rem]">TRENDING MOVIES</h1>
             <div id="trendingMovies" className="grid grid-cols-4 w-full p-12 gap-2">
                 {trendingMovies.map((movie, index) => (
-                    <Link key={index} to={"/movie/" + movie.id}>
-                        <Panel movie={movie} index={index}/>
-                    </Link>
+                    <Panel key={index} movie={movie} index={index}/>
                 ))}
             </div>
             <Footer />
