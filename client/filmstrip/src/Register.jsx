@@ -45,6 +45,7 @@ const Register = prop => {
             if(response.data.isLoginTaken){
               setIsLoginTaken(true);
             } else if(!response.data.isLoginTaken){
+              console.log(response.data);
               auth.login(response.data.login);
               window.localStorage.setItem("isLoggedIn", response.data.login);
               navigate("/");

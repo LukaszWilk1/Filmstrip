@@ -77,7 +77,7 @@ export const Navbar = () => {
               </div>
 
               <div className="relative inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                Hello User!
+                Hello {auth.user}!
               </div>
             </div>
           </div>
