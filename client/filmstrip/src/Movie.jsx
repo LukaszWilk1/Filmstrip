@@ -30,7 +30,7 @@ const Movie = () => {
     return (
         <div>
           <Navbar />
-          <div id="movie/series component" className="grid grid-cols-3 py-8 max-w-screen-xl mx-auto ">
+          <div id="movie/series component" className="grid grid-cols-3 py-8">
             <div className="pe-4">
               {movieData && <img src={imgSrc + movieData.poster_path} alt={movieData.title} className="w-[75%] mx-auto" />}
             </div>
@@ -40,15 +40,12 @@ const Movie = () => {
               <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">{movieData.tagline}</p>
               <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Overviev: {movieData.overview}</p>
               <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Rating: {movieData.vote_average}</p>
-              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Genres: {movieData.genres.map((genre, index) => (<span key={index}>{genre.name}{index !== movieData.genres.length - 1 && ", "}</span>))}</p>
-              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Budget: {movieData.budget}$</p>
-              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Runtime: {movieData.runtime} min</p>
-              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Relase Date: {movieData.release_date}</p>
-            </div>}            
-          </div>
-          <div id="comments" className="bg-white px-4 max-w-[600px] mx-auto sm:max-w-full">
-                <h1 className="text-xl lg:text-3xl">Comments</h1>
-            </div>  
+              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Genres: {movieData.genres.map((genre, index) => (<span key={index}>{genre.name}{index !== movieData.genres.length - 1 && ", "}</span>))}
+              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Budget: {movieData.budget}$</p></p></div>}
+            </div>
+            <div id="comments" className="bg-white">
+                <p className="text-[2em]">Comments</p>
+            </div>
           <Footer />
         </div>
       );
