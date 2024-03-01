@@ -34,9 +34,19 @@ const Movie = () => {
             <div className="pe-4">
               {movieData && <img src={imgSrc + movieData.poster_path} alt={movieData.title} className="w-[75%] mx-auto" />}
             </div>
-            <div className="col-span-2 mr-auto">
-              <h1 className="text-[#ffd500] text-[3.5rem]">{movieData && movieData.title}</h1>
-            </div>
+
+            {movieData && <div className="col-span-2 mr-auto px-4 w-[50%]">
+              <h1 className="text-[#ffd500] text-[3.5rem]">{movieData.title}</h1>
+              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">{movieData.tagline}</p>
+              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Overviev: {movieData.overview}</p>
+              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Rating: {movieData.vote_average}</p>
+              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Genres: {movieData.genres.map((genre, index) => (<span key={index}>{genre.name}{index !== movieData.genres.length - 1 && ", "}</span>))}
+              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Budget: {movieData.budget}$</p>
+</p>
+
+              
+            </div>}
+            
           </div>
           <Footer />
         </div>
