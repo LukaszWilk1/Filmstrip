@@ -32,7 +32,7 @@ const options = {
             <div id="trendingMovies" className="grid grid-cols-4 w-full p-12 gap-2">
                 {trendingMovies.map((movie, index) => (
                     <Link key={index} to={"/movie/" + movie.id}>
-                    <Panel movie={movie} />
+                        <Panel movie={movie} index={index}/>
                     </Link>
                 ))}
             </div>
