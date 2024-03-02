@@ -40,11 +40,21 @@ const Movie = () => {
               <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">{movieData.tagline}</p>
               <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Overviev: {movieData.overview}</p>
               <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Rating: {movieData.vote_average}</p>
-              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Genres: {movieData.genres.map((genre, index) => (<span key={index}>{genre.name}{index !== movieData.genres.length - 1 && ", "}</span>))}
-              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Budget: {movieData.budget}$</p></p></div>}
+              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Genres: {movieData.genres.map((genre, index) => (<span key={index}>{genre.name}{index !== movieData.genres.length - 1 && ", "}</span>))}</p>
+              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Budget: {movieData.budget}$</p></div>}
             </div>
-            <div id="comments" className="bg-white">
-                <p className="text-[2em]">Comments</p>
+            <div id="comments" className="bg-white grid grid-cols-2 p-4">
+                <div>
+                    <p className="text-[2em]">Comments</p>
+                </div>
+
+                <div className="text-end">
+                    <button className="text-[2em] w-fit p-3 border border-[#ffd500] rounded-full hover:bg-[#ffd500]">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                      </svg>
+                    </button>
+                </div>
             </div>
           <Footer />
         </div>
