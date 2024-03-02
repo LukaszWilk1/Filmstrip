@@ -78,7 +78,7 @@ app.post("/register", async (req, res) => {
 })
 
 app.get("/comments", async(req, res) => {
-    await db.query("SELECT users.login, users_comments.comment_text, users_comments.movie_id FROM users JOIN users_comments ON users.id = users_comments.user_id where users_comments.movie_id = $1;", [req.query.movieId], (err, dbRes) => {
+    await db.query("SELECT users.login, users_comments.comment_text, users_comments.movie_id FROM users JOIN users_comments ON users.id = users_comments.user_id where users_comments.movie_id = $1 order by users_comments.comment_date desc;", [req.query.movieId], (err, dbRes) => {
         if(err){
             console.log("Error: ", err.stack);
         } else {
@@ -89,8 +89,15 @@ app.get("/comments", async(req, res) => {
     });
 })
 
-app.post("/comment", async (req, res) => {
+app.post("/comments", async (req, res) => {
     console.log(req.body);
+    await db.query("INSERT INTO users_comments (comment_text, user_id, movie_id) VALUES ($1, $2, $3);", [req.body.comment, req.body.userId, req.body.movieId], (err, dbRes) => {
+        if(err){
+            console.log(err.stack);
+        } else {
+            res.send("data send successfully");
+        }
+    })
 })
 
 app.listen(port, () => {

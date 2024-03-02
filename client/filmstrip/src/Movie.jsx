@@ -5,6 +5,7 @@ import { Footer } from "./Footer";
 import axios from "axios";
 import { useAuth } from "./auth";
 import Comment from "./Comment";
+import { useNavigate } from "react-router-dom";
 
 const options = {
     method: 'GET',
@@ -19,8 +20,9 @@ const options = {
 const Movie = () => {
 
     const auth = useAuth();
-
+    const navigate = useNavigate();
     const params = useParams();
+
     const [movieData, setMovieData] = useState();
     const [isWritingComment, setIsWritingComment] = useState(false);
     const [comment, setComment] = useState('');
@@ -54,9 +56,10 @@ const Movie = () => {
       if(comment!==''){
         setIsCommentInputEmpty(false);
         setComment('');
-        axios.post('http://localhost:3001/comments', {user_id: auth.user.id, movie_id: params.movieId, comment: comment})
+        const date = new Date();
+        axios.post('http://localhost:3001/comments', {userId: auth.user.id, movieId: params.movieId, comment: comment, date: date})
           .then(response => {
-
+            window.location.reload();
           })
           .catch(function (error) {
             console.log(error);
