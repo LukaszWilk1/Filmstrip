@@ -14,7 +14,6 @@ const Register = prop => {
     });
 
     const auth = useAuth();
-    console.log("Register Auth: ", auth.user);
 
     const [areInputsEmpty, setAreInputsEmpty] = useState(false);
     const [arePasswordsDifferent, setArePasswordsDifferent] = useState(false);
@@ -45,8 +44,7 @@ const Register = prop => {
             if(response.data.isLoginTaken){
               setIsLoginTaken(true);
             } else if(!response.data.isLoginTaken){
-              console.log(response.data);
-              auth.login(response.data.login);
+              auth.login(response.data);
               window.localStorage.setItem("isLoggedIn", response.data.login);
               navigate("/");
               setIsLoginTaken(false);

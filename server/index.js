@@ -55,14 +55,23 @@ app.post("/register", async (req, res) => {
             if(resDb.rows.find(dbLogin => dbLogin.login === req.body.login)){
                 res.send({isLoginTaken: true});
             } else {
+                let id;
                 bcrypt.hash(req.body.password, saltRounds, async (err, hash) => {
                     if(err){
                         console.log(err.message);
                     } else {
                         db.query("INSERT INTO users (login, user_password) VALUES ($1, $2)", [req.body.login, hash]);
+                        db.query("SELECT id FROM users WHERE login LIKE $1", [req.body.login], (err, dataId) => {
+                            if(err){
+                                console.log("Error: ", err.stack);
+                            } else {
+                                id = dataId.rows[0].id;
+                                res.send({isLoginTaken: false, login: req.body.login, user_id: id});
+                            }
+                        });
                     }
                 })
-                res.send({isLoginTaken: false, login: req.body.login});
+
             }
         }
     })
