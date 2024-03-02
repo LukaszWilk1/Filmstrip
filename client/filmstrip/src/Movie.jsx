@@ -85,7 +85,7 @@ const Movie = () => {
               <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Genres: {movieData.genres.map((genre, index) => (<span key={index}>{genre.name}{index !== movieData.genres.length - 1 && ", "}</span>))}</p>
               <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Budget: {movieData.budget}$</p></div>}
             </div>
-            <div id="comments" className="bg-white grid grid-cols-2 p-4 pr-8 gap-2">
+            <div id="comments" className="bg-white grid grid-cols-2 p-4 lg:pr-8 gap-2">
                 <div>
                     <p className="text-[2em]">Comments</p>
                 </div>
