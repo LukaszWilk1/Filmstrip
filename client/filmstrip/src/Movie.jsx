@@ -18,6 +18,7 @@ const Movie = () => {
     const params = useParams();
     const [movieData, setMovieData] = useState();
     const [isWritingComment, setIsWritingComment] = useState(false);
+    const [comment, setComment] = useState('');
 
     useEffect(() => {
         fetch(`https://api.themoviedb.org/3/movie/${params.movieId}?language=en-US`, options)
@@ -62,7 +63,7 @@ const Movie = () => {
                 {isWritingComment ? <div className="col-span-2">
                   <label htmlFor="yourComment" className="block text-sm font-medium leading-6 text-gray-900">Your comment</label>
                   <div className="relative mt-2 rounded-md shadow-sm">
-                    <input type="text" name="price" id="price" className="block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#ffd500] sm:text-sm sm:leading-6" placeholder="Your comment"></input>
+                    <input type="text" name="price" id="price" className="block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6" placeholder="Your comment" maxLength={255}></input>
                   </div>
                   <button className="border border-[#18191A] mt-4 px-6 rounded-md hover:bg-[#18191A] hover:text-white">SEND</button>
                 </div> : <></>}

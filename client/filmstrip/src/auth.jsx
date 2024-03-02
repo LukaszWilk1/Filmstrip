@@ -8,6 +8,8 @@ export const AuthProvider = ({ children }) => {
         return storedUser ? storedUser : null; // Sparsowanie wartości z localStorage
     });
 
+    console.log(user);
+
     const login = user => {
         setUser(user);
     };

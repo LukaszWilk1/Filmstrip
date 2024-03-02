@@ -26,17 +26,16 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post("/login", async (req, res) => {
-    await db.query("Select user_password FROM users WHERE login LIKE $1", [req.body.login], (err, resDb) => {
+    await db.query("Select user_password, id FROM users WHERE login LIKE $1", [req.body.login], (err, resDb) => {
         if(err){
             console.log("Error: ", err.stack);
         } else {
-            console.log("Data: ", resDb.rows);
             const dataRows = resDb.rows;
 
             if(dataRows.length !== 0){
                 bcrypt.compare(req.body.password, dataRows[0].user_password).then(result => {
                     if(result){
-                        res.send({login: req.body.login, isPasswordCorrect: true});
+                        res.send({login: req.body.login, isPasswordCorrect: true, user_id: dataRows[0].id});
                     } else {
                         res.send({isPasswordCorrect: false});
                     }

@@ -47,7 +47,7 @@ const Login = () => {
               if(!response.data.isPasswordCorrect) setIsPasswordWrong(true);
               else{
                 setIsPasswordWrong(false);
-                auth.login(response.data.login);
+                auth.login(response.data);
                 window.localStorage.setItem("isLoggedIn", response.data.login);
                 navigate("/");
               }
