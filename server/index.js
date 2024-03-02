@@ -82,7 +82,9 @@ app.get("/comments", async(req, res) => {
         if(err){
             console.log("Error: ", err.stack);
         } else {
-            console.log(dbRes.rows);
+            if(dbRes.rows.length!==0){
+                res.send(dbRes.rows);
+            }
         }
     });
 })

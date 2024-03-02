@@ -4,6 +4,7 @@ import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import axios from "axios";
 import { useAuth } from "./auth";
+import Comment from "./Comment";
 
 const options = {
     method: 'GET',
@@ -34,7 +35,7 @@ const Movie = () => {
 
         axios.get("http://localhost:3001/comments", {params: {movieId: params.movieId}})
         .then(response => {
-          console.log(response);
+          setComments(response.data);
         })
         .catch(err => {
           console.log(err.message);
@@ -97,11 +98,13 @@ const Movie = () => {
                 {isWritingComment ? <div className="col-span-2">
                   <label htmlFor="yourComment" className="block text-sm font-medium leading-6 text-gray-900">Your comment</label>
                   <div className="relative mt-2 rounded-md shadow-sm">
-                    <input id="commentInput" type="text" name="price" id="price" className="block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6" placeholder="Your comment" maxLength={255} value={comment} onChange={handleCommentInputChange}></input>
+                    <input id="commentInput" type="text" name="price" className="block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6" placeholder="Your comment" maxLength={255} value={comment} onChange={handleCommentInputChange}></input>
                     {isCommentInputEmpty ? <p className="text-red-600 text-center">You must write comment first!</p> : <></>}
                   </div>
                   <button className="border border-[#18191A] mt-4 px-6 rounded-md hover:bg-[#18191A] hover:text-white" onClick={handleSendCommentClick}>SEND</button>
                 </div> : <></>}
+
+                {comments && comments.map((comment, index) => (<Comment key={index} login={comment.login} comment={comment.comment_text}></Comment>))}
 
             </div>
           <Footer />
