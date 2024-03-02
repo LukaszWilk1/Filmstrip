@@ -18,18 +18,27 @@ const options = {
 const Movie = () => {
 
     const auth = useAuth();
-    console.log(auth.user)
 
     const params = useParams();
     const [movieData, setMovieData] = useState();
     const [isWritingComment, setIsWritingComment] = useState(false);
     const [comment, setComment] = useState('');
+    const [isCommentInputEmpty, setIsCommentInputEmpty] = useState(false);
+    const [comments, setComments] = useState([]);
 
     useEffect(() => {
         fetch(`https://api.themoviedb.org/3/movie/${params.movieId}?language=en-US`, options)
             .then(response => response.json())
             .then(response => setMovieData(response))
             .catch(err => console.error(err));
+
+        axios.get("http://localhost:3001/comments", {params: {movieId: params.movieId}})
+        .then(response => {
+          console.log(response);
+        })
+        .catch(err => {
+          console.log(err.message);
+        })
     }, []);
 
     const handleAddCommentClick = () =>{
@@ -42,13 +51,17 @@ const Movie = () => {
 
     const handleSendCommentClick = () => {
       if(comment!==''){
-        axios.post('http://localhost:3001/comment', {user_id: auth.user.id})
+        setIsCommentInputEmpty(false);
+        setComment('');
+        axios.post('http://localhost:3001/comments', {user_id: auth.user.id, movie_id: params.movieId, comment: comment})
           .then(response => {
 
           })
           .catch(function (error) {
             console.log(error);
           });
+      } else {
+        setIsCommentInputEmpty(true);
       }
     }
 
@@ -84,9 +97,10 @@ const Movie = () => {
                 {isWritingComment ? <div className="col-span-2">
                   <label htmlFor="yourComment" className="block text-sm font-medium leading-6 text-gray-900">Your comment</label>
                   <div className="relative mt-2 rounded-md shadow-sm">
-                    <input type="text" name="price" id="price" className="block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6" placeholder="Your comment" maxLength={255} value={comment} onChange={handleCommentInputChange}></input>
+                    <input id="commentInput" type="text" name="price" id="price" className="block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6" placeholder="Your comment" maxLength={255} value={comment} onChange={handleCommentInputChange}></input>
+                    {isCommentInputEmpty ? <p className="text-red-600 text-center">You must write comment first!</p> : <></>}
                   </div>
-                  <button className="border border-[#18191A] mt-4 px-6 rounded-md hover:bg-[#18191A] hover:text-white">SEND</button>
+                  <button className="border border-[#18191A] mt-4 px-6 rounded-md hover:bg-[#18191A] hover:text-white" onClick={handleSendCommentClick}>SEND</button>
                 </div> : <></>}
 
             </div>

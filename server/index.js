@@ -77,8 +77,18 @@ app.post("/register", async (req, res) => {
     })
 })
 
+app.get("/comments", async(req, res) => {
+    await db.query("SELECT users.login, users_comments.comment_text, users_comments.movie_id FROM users JOIN users_comments ON users.id = users_comments.user_id where users_comments.movie_id = $1;", [req.query.movieId], (err, dbRes) => {
+        if(err){
+            console.log("Error: ", err.stack);
+        } else {
+            console.log(dbRes.rows);
+        }
+    });
+})
+
 app.post("/comment", async (req, res) => {
-    await db
+    console.log(req.body);
 })
 
 app.listen(port, () => {
