@@ -66,7 +66,7 @@ app.post("/register", async (req, res) => {
                                 console.log("Error: ", err.stack);
                             } else {
                                 id = dataId.rows[0].id;
-                                res.send({isLoginTaken: false, login: req.body.login, user_id: id});
+                                res.send({isPasswordCorrect: true, login: req.body.login, user_id: id});
                             }
                         });
                     }
@@ -75,6 +75,10 @@ app.post("/register", async (req, res) => {
             }
         }
     })
+})
+
+app.post("/comment", async (req, res) => {
+    await db
 })
 
 app.listen(port, () => {

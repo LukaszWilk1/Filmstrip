@@ -4,68 +4,45 @@ import { useAuth } from "./auth.jsx";
 import axios from "axios";
 
 const Login = () => {
+  const auth = useAuth();
+  const navigate = useNavigate();
 
-    const auth = useAuth();
+  const [loginData, setLoginData] = useState({ login: '', password: '' });
+  const [areInputsEmpty, setAreInputsEmpty] = useState(false);
+  const [isPasswordWrong, setIsPasswordWrong] = useState(false);
+  const [wrongUser, setWrongUser] = useState(false);
 
-    const [loginData, setLoginData] = useState({
-      login: '',
-      password: '',
-    });
-    const [areInputsEmpty, setAreInputsEmpty] = useState(false);
-    const [isPasswordWrong, setIsPasswordWrong] = useState(false);
-    const [wrongUser, setWrongUser] = useState(false);
+  const handleInputChange = e => {
+      const { name, value } = e.target;
+      setLoginData(prevVal => ({ ...prevVal, [name]: value }));
+  };
 
-    const navigate = useNavigate();
-
-    const handleInputChange = e => {
-
-      const {name, value} = e.target;
-
-      setLoginData(prevVal => {
-        return {
-          ...prevVal,
-          [name]: value,
-        };
-      });
-    };
-
-    const handleLoginClick = () => {
-      if(loginData.login !== '' && loginData.password !== ''){
-        setAreInputsEmpty(false);
-        document.getElementById("loginInput").disabled=true;
-        document.getElementById("password").disabled=true;
-        document.getElementById("loginButton").disabled=true;
-        document.getElementById("registerButton").disabled=true;
-        axios.post('http://localhost:3001/login', {...loginData})
-          .then(response => {
-            document.getElementById("loginInput").disabled=false;
-            document.getElementById("password").disabled=false;
-            document.getElementById("loginButton").disabled=false;
-            document.getElementById("registerButton").disabled=false;
-            if(!response.data.wrongUser){
-              setWrongUser(false);
-              if(!response.data.isPasswordCorrect) setIsPasswordWrong(true);
-              else{
-                setIsPasswordWrong(false);
-                auth.login(response.data);
-                window.localStorage.setItem("isLoggedIn", response.data.login);
-                navigate("/");
-              }
-            } else {
-              setWrongUser(true);
-            }
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+  const handleLoginClick = () => {
+      if (loginData.login !== '' && loginData.password !== '') {
+          setAreInputsEmpty(false);
+          axios.post('http://localhost:3001/login', { ...loginData })
+              .then(response => {
+                  if (!response.data.wrongUser) {
+                      setWrongUser(false);
+                      if (!response.data.isPasswordCorrect) setIsPasswordWrong(true);
+                      else {
+                          setIsPasswordWrong(false);
+                          auth.login(response.data);
+                          navigate("/");
+                      }
+                  } else {
+                      setWrongUser(true);
+                  }
+              })
+              .catch(error => console.error(error));
       } else {
-        setAreInputsEmpty(true);
+          setAreInputsEmpty(true);
       }
-    }
+  };
 
-    const handleRegisterClick = () => {
-        navigate("/register");
-    };
+  const handleRegisterClick = () => {
+      navigate("/register");
+  };
 
     return (
 <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">

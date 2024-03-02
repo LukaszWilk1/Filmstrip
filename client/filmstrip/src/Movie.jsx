@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
+import axios from "axios";
+import { useAuth } from "./auth";
 
 const options = {
     method: 'GET',
@@ -14,6 +16,9 @@ const options = {
   const imgSrc = 'https://image.tmdb.org/t/p/original/';
 
 const Movie = () => {
+
+    const auth = useAuth();
+    console.log(auth.user)
 
     const params = useParams();
     const [movieData, setMovieData] = useState();
@@ -29,6 +34,22 @@ const Movie = () => {
 
     const handleAddCommentClick = () =>{
       setIsWritingComment(!isWritingComment);
+    }
+
+    const handleCommentInputChange = e => {
+      setComment(e.target.value);
+    }
+
+    const handleSendCommentClick = () => {
+      if(comment!==''){
+        axios.post('http://localhost:3001/comment', {user_id: auth.user.id})
+          .then(response => {
+
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
     }
 
     return (
@@ -63,7 +84,7 @@ const Movie = () => {
                 {isWritingComment ? <div className="col-span-2">
                   <label htmlFor="yourComment" className="block text-sm font-medium leading-6 text-gray-900">Your comment</label>
                   <div className="relative mt-2 rounded-md shadow-sm">
-                    <input type="text" name="price" id="price" className="block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6" placeholder="Your comment" maxLength={255}></input>
+                    <input type="text" name="price" id="price" className="block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6" placeholder="Your comment" maxLength={255} value={comment} onChange={handleCommentInputChange}></input>
                   </div>
                   <button className="border border-[#18191A] mt-4 px-6 rounded-md hover:bg-[#18191A] hover:text-white">SEND</button>
                 </div> : <></>}
