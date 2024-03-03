@@ -56,8 +56,7 @@ const Movie = () => {
       if(comment!==''){
         setIsCommentInputEmpty(false);
         setComment('');
-        const date = new Date();
-        axios.post('http://localhost:3001/comments', {userId: auth.user.id, movieId: params.movieId, comment: comment, date: date})
+        axios.post('http://localhost:3001/comments', {params: {userId: auth.user.id, movieId: params.movieId, comment: comment}})
           .then(response => {
             window.location.reload();
           })
@@ -85,7 +84,7 @@ const Movie = () => {
               <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Genres: {movieData.genres.map((genre, index) => (<span key={index}>{genre.name}{index !== movieData.genres.length - 1 && ", "}</span>))}</p>
               <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Budget: {movieData.budget}$</p></div>}
             </div>
-            <div id="comments" className="bg-white grid grid-cols-2 p-4 lg:pr-8 gap-2">
+            <div id="comments" className="bg-white grid grid-cols-2 p-4 lg:pr-8 md:pr-6 sm:pr-4 gap-2">
                 <div>
                     <p className="text-[2em]">Comments</p>
                 </div>
@@ -107,7 +106,7 @@ const Movie = () => {
                   <button className="border border-[#18191A] mt-4 px-6 rounded-md hover:bg-[#18191A] hover:text-white" onClick={handleSendCommentClick}>SEND</button>
                 </div> : <></>}
 
-                {comments && comments.map((comment, index) => (<Comment key={index} login={comment.login} comment={comment.comment_text}></Comment>))}
+                {comments && comments.map((comment, index) => (<Comment key={index} login={comment.login} comment={comment.comment_text} commentId={comment.comment_id} movieId={params.movieId}></Comment>))}
 
             </div>
           <Footer />

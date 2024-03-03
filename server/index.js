@@ -78,7 +78,7 @@ app.post("/register", async (req, res) => {
 })
 
 app.get("/comments", async(req, res) => {
-    await db.query("SELECT users.login, users_comments.comment_text, users_comments.movie_id FROM users JOIN users_comments ON users.id = users_comments.user_id where users_comments.movie_id = $1 order by users_comments.comment_date desc;", [req.query.movieId], (err, dbRes) => {
+    await db.query("SELECT users.login, users_comments.comment_text, users_comments.movie_id, users_comments.comment_id FROM users JOIN users_comments ON users.id = users_comments.user_id where users_comments.movie_id = $1 order by users_comments.comment_date desc;", [req.query.movieId], (err, dbRes) => {
         if(err){
             console.log("Error: ", err.stack);
         } else {
@@ -96,7 +96,18 @@ app.post("/comments", async (req, res) => {
             console.log(err.stack);
         } else {
             res.send("data send successfully");
-        }
+        };
+    });
+});
+
+app.put("/comments", async(req, res) => {
+    console.log(req.body);
+    await db.query("UPDATE users_comments SET comment_text = $1 WHERE comment_id = $2", [req.body.newComment, req.body.commentId], (err, dbRes) => {
+        if(err){
+            console.log(err.stack);
+        } else {
+            res.send("data send successfully");
+        };
     })
 })
 
