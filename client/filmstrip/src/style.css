@@ -4,21 +4,24 @@
 
 html{
     box-sizing: border-box;
-    overflow-x: hidden;
-    max-width: 100vw;
+    overflow-y: hidden; /* Usunięcie overflow-x */
+    padding: 0;
+    margin: 0;
 }
 
 body{
-    width: 100vw;
-    height: 100vh;
     background-color: #18191A;
     overflow-x: hidden;
+    overflow-y: auto; /* Dodanie overflow-y: auto; aby zachować pionowy pasek przewijania */
+    margin: 0;
 }
 
 #root{
     width: 100vw;
     height: 100vh;
+    overflow-x: hidden; /* Zachowanie overflow-x: hidden; dla #root */
 }
+
 
 #register, #login{
     border: 1px solid #fdc500;
