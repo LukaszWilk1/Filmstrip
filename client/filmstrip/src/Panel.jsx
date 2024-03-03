@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 const Panel = ({ movie, index }) => {
     const imgSrc = 'https://image.tmdb.org/t/p/original/';
     
-
     return (
         <Link key={index} to={"/movie/" + movie.id}>
             <div id={movie.id} className="relative">

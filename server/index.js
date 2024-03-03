@@ -26,17 +26,16 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post("/login", async (req, res) => {
-    await db.query("Select user_password FROM users WHERE login LIKE $1", [req.body.login], (err, resDb) => {
+    await db.query("Select user_password, id FROM users WHERE login LIKE $1", [req.body.login], (err, resDb) => {
         if(err){
             console.log("Error: ", err.stack);
         } else {
-            console.log("Data: ", resDb.rows);
             const dataRows = resDb.rows;
 
             if(dataRows.length !== 0){
                 bcrypt.compare(req.body.password, dataRows[0].user_password).then(result => {
                     if(result){
-                        res.send({login: req.body.login, isPasswordCorrect: true});
+                        res.send({login: req.body.login, isPasswordCorrect: true, user_id: dataRows[0].id});
                     } else {
                         res.send({isPasswordCorrect: false});
                     }
@@ -56,18 +55,69 @@ app.post("/register", async (req, res) => {
             if(resDb.rows.find(dbLogin => dbLogin.login === req.body.login)){
                 res.send({isLoginTaken: true});
             } else {
+                let id;
                 bcrypt.hash(req.body.password, saltRounds, async (err, hash) => {
                     if(err){
                         console.log(err.message);
                     } else {
                         db.query("INSERT INTO users (login, user_password) VALUES ($1, $2)", [req.body.login, hash]);
+                        db.query("SELECT id FROM users WHERE login LIKE $1", [req.body.login], (err, dataId) => {
+                            if(err){
+                                console.log("Error: ", err.stack);
+                            } else {
+                                id = dataId.rows[0].id;
+                                res.send({isPasswordCorrect: true, login: req.body.login, user_id: id});
+                            }
+                        });
                     }
                 })
-                res.send({isLoginTaken: false, login: req.body.login});
+
             }
         }
     })
 })
+
+app.get("/comments", async(req, res) => {
+    await db.query("SELECT users.login, users_comments.comment_text, users_comments.movie_id, users_comments.comment_id FROM users JOIN users_comments ON users.id = users_comments.user_id where users_comments.movie_id = $1 order by users_comments.comment_date desc;", [req.query.movieId], (err, dbRes) => {
+        if(err){
+            console.log("Error: ", err.stack);
+        } else {
+            if(dbRes.rows.length!==0){
+                res.send(dbRes.rows);
+            }
+        }
+    });
+})
+
+app.post("/comments", async (req, res) => {
+    await db.query("INSERT INTO users_comments (comment_text, user_id, movie_id) VALUES ($1, $2, $3);", [req.body.comment, req.body.userId, req.body.movieId], (err, dbRes) => {
+        if(err){
+            console.log(err.stack);
+        } else {
+            res.send("data send successfully");
+        };
+    });
+});
+
+app.put("/comments", async(req, res) => {
+    await db.query("UPDATE users_comments SET comment_text = $1 WHERE comment_id = $2", [req.body.newComment, req.body.commentId], (err, dbRes) => {
+        if(err){
+            console.log(err.stack);
+        } else {
+            res.send("data send successfully");
+        };
+    });
+});
+
+app.delete("/comments", async(req, res) => {
+    await db.query("DELETE FROM users_comments WHERE comment_id=$1", [req.query.commentId], (err, dbRes) => {
+        if(err){
+            console.log(err.stack);
+        } else {
+            res.send("data send successfully");
+        };
+    });
+});
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
