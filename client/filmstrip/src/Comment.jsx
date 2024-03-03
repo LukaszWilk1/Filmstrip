@@ -12,8 +12,17 @@ const Comment = prop => {
 
     const handleEditClick = () => {
         setIsEditing(!isEditing);
-        console.log(prop.commentId);
     };
+
+    const handleDeleteClick = () => {
+        axios.delete("http://localhost:3001/comments", {params: {commentId: prop.commentId}})
+        .then(response => {
+            window.location.reload();
+          })
+          .catch(err => {
+            console.log(err);
+          });
+    }
 
     const handleCommentInputChange = e => {
         setComment(e.target.value);
@@ -59,7 +68,10 @@ const Comment = prop => {
                     >
                         Edit
                     </button>
-                    <button className="border border-red-500 text-red-500 rounded-md px-8 py-0.5 hover:bg-red-500 hover:text-white">
+                    <button 
+                        className="border border-red-500 text-red-500 rounded-md px-8 py-0.5 hover:bg-red-500 hover:text-white"
+                        onClick={handleDeleteClick}
+                    >
                         Delete
                     </button>
                 </div>

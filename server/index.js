@@ -90,7 +90,6 @@ app.get("/comments", async(req, res) => {
 })
 
 app.post("/comments", async (req, res) => {
-    console.log(req.body);
     await db.query("INSERT INTO users_comments (comment_text, user_id, movie_id) VALUES ($1, $2, $3);", [req.body.comment, req.body.userId, req.body.movieId], (err, dbRes) => {
         if(err){
             console.log(err.stack);
@@ -101,15 +100,24 @@ app.post("/comments", async (req, res) => {
 });
 
 app.put("/comments", async(req, res) => {
-    console.log(req.body);
     await db.query("UPDATE users_comments SET comment_text = $1 WHERE comment_id = $2", [req.body.newComment, req.body.commentId], (err, dbRes) => {
         if(err){
             console.log(err.stack);
         } else {
             res.send("data send successfully");
         };
-    })
-})
+    });
+});
+
+app.delete("/comments", async(req, res) => {
+    await db.query("DELETE FROM users_comments WHERE comment_id=$1", [req.query.commentId], (err, dbRes) => {
+        if(err){
+            console.log(err.stack);
+        } else {
+            res.send("data send successfully");
+        };
+    });
+});
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
