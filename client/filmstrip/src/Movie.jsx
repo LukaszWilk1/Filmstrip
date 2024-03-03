@@ -71,12 +71,12 @@ const Movie = () => {
     return (
         <div>
           <Navbar />
-          <div id="movie/series component" className="grid grid-cols-3 py-8">
-            <div className="pe-4">
+          <div id="movie/series component" className="md:grid md:grid-cols-3 py-8">
+            <div className="">
               {movieData && <img src={imgSrc + movieData.poster_path} alt={movieData.title} className="w-[75%] mx-auto" />}
             </div>
 
-            {movieData && <div className="col-span-2 mr-auto px-4 w-[50%]">
+            {movieData && <div className="col-span-2 mr-auto px-4 md:w-[50%] max-w-[100vw] pr-6">
               <h1 className="text-[#ffd500] text-[3.5rem]">{movieData.title}</h1>
               <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">{movieData.tagline}</p>
               <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Overviev: {movieData.overview}</p>
