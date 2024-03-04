@@ -13,6 +13,8 @@ const options = {
 
   const TopRatedMovies = () => {
 
+    window.localStorage.setItem("search", '');
+
     const [trendingMovies, setTrendingMovies] = useState([]);
 
     useEffect(() => {
