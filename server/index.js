@@ -119,6 +119,28 @@ app.delete("/comments", async(req, res) => {
     });
 });
 
+app.get("/seriesComments", async(req, res) => {
+    await db.query("SELECT users.login, users_series_comments.comment_text, users_series_comments.series_id, users_series_comments.comment_id FROM users JOIN users_series_comments ON users.id = users_series_comments.user_id where users_series_comments.series_id = $1 order by users_series_comments.comment_date desc;", [req.query.seriesId], (err, dbRes) => {
+        if(err){
+            console.log("Error: ", err.stack);
+        } else {
+            if(dbRes.rows.length!==0){
+                res.send(dbRes.rows);
+            }
+        }
+    });
+});
+
+app.post("/seriesComments", async (req, res) => {
+    await db.query("INSERT INTO users_series_comments (comment_text, user_id, series_id) VALUES ($1, $2, $3);", [req.body.comment, req.body.userId, req.body.seriesId], (err, dbRes) => {
+        if(err){
+            console.log(err.stack);
+        } else {
+            res.send("data send successfully");
+        };
+    });
+});
+
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 })

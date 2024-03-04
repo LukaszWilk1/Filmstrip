@@ -35,7 +35,7 @@ const Series = () => {
             .then(response => setSeriesData(response))
             .catch(err => console.error(err));
 
-        axios.get("http://localhost:3001/comments", {params: {movieId: params.seriesId}})
+        axios.get("http://localhost:3001/seriesComments", {params: {seriesId: params.seriesId}})
         .then(response => {
           setComments(response.data);
         })
@@ -56,7 +56,7 @@ const Series = () => {
       if(comment!==''){
         setIsCommentInputEmpty(false);
         setComment('');
-        axios.post('http://localhost:3001/comments', {userId: auth.user.id, movieId: params.seriesId, comment: comment})
+        axios.post('http://localhost:3001/seriesComments', {userId: auth.user.id, seriesId: params.seriesId, comment: comment})
           .then(response => {
             window.location.reload();
           })
