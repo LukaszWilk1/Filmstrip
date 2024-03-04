@@ -11,12 +11,12 @@ const options = {
     }
   };
 
-  const Home = () => {
+  const TopRatedMovies = () => {
 
     const [trendingMovies, setTrendingMovies] = useState([]);
 
     useEffect(() => {
-        fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)
+        fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options)
         .then(response => response.json())
         .then(response => {
             setTrendingMovies(response.results);
@@ -27,7 +27,7 @@ const options = {
     return (
         <div id="home" className="w-full h-full overflow-x-hidden">
             <Navbar />
-            <h1 className="text-[#ffd500] text-center text-[4rem] mt-12">TRENDING MOVIES</h1>
+            <h1 className="text-[#ffd500] text-center text-[4rem] mt-12">TOP RATED MOVIES</h1>
             <div id="trendingMovies" className="grid grid-cols-4 w-full p-12 gap-2">
                 {trendingMovies.map((movie, index) => (
                     <Panel key={index} movie={movie} index={index}/>
@@ -38,4 +38,4 @@ const options = {
     );
 }
 
-export default Home;
+export default TopRatedMovies;

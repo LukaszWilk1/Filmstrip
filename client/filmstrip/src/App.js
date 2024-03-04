@@ -6,6 +6,7 @@ import Home from './Home';
 import Register from './Register';
 import { AuthProvider } from './auth';
 import Movie from './Movie';
+import TopRatedMovies from './TopRatedMovies';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         <Route element={<PrivateRoute/>}>
           <Route path="/" element={<Home/>}/>
           <Route path="/movie/:movieId" element={<Movie/>}/>
-          <Route path="/movies" element={<Home/>}/>
+          <Route path="/movies" element={<TopRatedMovies/>}/>
           <Route path="/series" element={<Home/>}/>
           <Route path="/favourite" element={<Home/>}/>
         </Route>
