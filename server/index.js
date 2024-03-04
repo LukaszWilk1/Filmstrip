@@ -141,6 +141,26 @@ app.post("/seriesComments", async (req, res) => {
     });
 });
 
+app.put("/seriesComments", async(req, res) => {
+    await db.query("UPDATE users_series_comments SET comment_text = $1 WHERE comment_id = $2", [req.body.newComment, req.body.commentId], (err, dbRes) => {
+        if(err){
+            console.log(err.stack);
+        } else {
+            res.send("data send successfully");
+        };
+    });
+});
+
+app.delete("/seriesComments", async(req, res) => {
+    await db.query("DELETE FROM users_series_comments WHERE comment_id=$1", [req.query.commentId], (err, dbRes) => {
+        if(err){
+            console.log(err.stack);
+        } else {
+            res.send("data send successfully");
+        };
+    });
+});
+
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 })

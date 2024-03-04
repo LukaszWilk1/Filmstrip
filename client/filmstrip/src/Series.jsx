@@ -4,7 +4,7 @@ import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import axios from "axios";
 import { useAuth } from "./auth";
-import Comment from "./Comment";
+import SeriesComment from "./SeriesComment";
 import { useNavigate } from "react-router-dom";
 
 const options = {
@@ -106,7 +106,7 @@ const Series = () => {
                   <button className="border border-[#18191A] mt-4 px-6 rounded-md hover:bg-[#18191A] hover:text-white" onClick={handleSendCommentClick}>SEND</button>
                 </div> : <></>}
 
-                {comments && comments.map((comment, index) => (<Comment key={index} login={comment.login} comment={comment.comment_text} commentId={comment.comment_id} movieId={params.movieId}></Comment>))}
+                {comments && comments.map((comment, index) => (<SeriesComment key={index} login={comment.login} comment={comment.comment_text} commentId={comment.comment_id} movieId={params.movieId}></SeriesComment>))}
 
             </div>
           <Footer />
