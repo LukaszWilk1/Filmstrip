@@ -161,6 +161,20 @@ app.delete("/seriesComments", async(req, res) => {
     });
 });
 
+app.post("/passwordChange", async(req, res) => {
+    console.log(req.body);
+    await db.query("UPDATE users SET user_password = $1 WHERE login = $2", [req.body.newPassword, req.body.login]);
+
+    bcrypt.hash(req.body.newPassword, saltRounds, async (err, hash) => {
+        if(err){
+            console.log(err.message);
+        } else {
+            await db.query("UPDATE users SET user_password = $1 WHERE login = $2", [hash, req.body.login]);
+            res.send("Password changed")
+        }
+    })
+})
+
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 })

@@ -10,6 +10,7 @@ import TopRatedMovies from './TopRatedMovies';
 import TopRatedSeries from './TopRatedSeries';
 import Series from './Series';
 import Search from './Search';
+import PasswordChange from './PasswordChange';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/movies" element={<TopRatedMovies/>}/>
           <Route path="/series" element={<TopRatedSeries/>}/>
           <Route path="/search" element={<Search/>}/>
+          <Route path="/passwordChange" element={<PasswordChange/>}/>
         </Route>
         <Route path="/register" element={<Register/>}/> 
         <Route path="/login" element={<Login/>}/>
