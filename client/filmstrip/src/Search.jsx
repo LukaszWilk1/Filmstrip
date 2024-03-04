@@ -15,8 +15,24 @@ const options = {
   const Search = () => {
 
     const [results, setResults] = useState([]);
-    const [searchInput, setSearchInput] = useState('');
+    const [searchInput, setSearchInput] = useState(() => {
+        const search = window.localStorage.getItem("search");
+        return search || ''
+    });
     const [isInputEmpty, setIsInputEmpty] = useState(true);
+
+    useEffect(() => {
+        const search = window.localStorage.getItem("search");
+        if(search){
+            fetch(`https://api.themoviedb.org/3/search/multi?query=${search}&include_adult=true&language=en-US&page=1`, options)
+            .then(response => response.json())
+            .then(response => {
+                setResults(response.results);
+            })
+            .catch(err => console.error(err));
+        }
+
+    },[])
 
     const handleSearchInputChange = e => {
         setSearchInput(e.target.value);
@@ -25,6 +41,7 @@ const options = {
     const handleButtonClick = () => {
         if(searchInput!==''){
             setIsInputEmpty(true);
+            window.localStorage.setItem("search", searchInput);
             
             fetch(`https://api.themoviedb.org/3/search/multi?query=${searchInput}&include_adult=true&language=en-US&page=1`, options)
             .then(response => response.json())
@@ -34,7 +51,7 @@ const options = {
             .catch(err => console.error(err));
         } else {
                 setIsInputEmpty(false);
-            }  
+        }  
     }  
 
     return (
