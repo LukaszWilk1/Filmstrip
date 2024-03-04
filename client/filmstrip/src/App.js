@@ -8,6 +8,7 @@ import { AuthProvider } from './auth';
 import Movie from './Movie';
 import TopRatedMovies from './TopRatedMovies';
 import TopRatedSeries from './TopRatedSeries';
+import Series from './Series';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route element={<PrivateRoute/>}>
           <Route path="/" element={<Home/>}/>
           <Route path="/movie/:movieId" element={<Movie/>}/>
+          <Route path="/series/:seriesId" element={<Series/>}/>
           <Route path="/movies" element={<TopRatedMovies/>}/>
           <Route path="/series" element={<TopRatedSeries/>}/>
           <Route path="/favourite" element={<Home/>}/>

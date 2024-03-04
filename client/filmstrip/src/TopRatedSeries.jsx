@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
-import Panel from "./Panel";
+import SeriesPanel from "./SeriesPanel";
 
 const options = {
     method: 'GET',
@@ -11,15 +11,15 @@ const options = {
     }
   };
 
-  const TopRatedMovies = () => {
+  const TopRatedSeries = () => {
 
-    const [trendingMovies, setTrendingMovies] = useState([]);
+    const [trendingSeries, setTrendingSeries] = useState([]);
 
     useEffect(() => {
         fetch('https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1', options)
         .then(response => response.json())
         .then(response => {
-            setTrendingMovies(response.results);
+            setTrendingSeries(response.results);
         })
         .catch(err => console.error(err));
     }, []);
@@ -27,10 +27,10 @@ const options = {
     return (
         <div id="home" className="w-full h-full overflow-x-hidden">
             <Navbar />
-            <h1 className="text-[#ffd500] text-center text-[4rem] mt-12">TOP RATED MOVIES</h1>
+            <h1 className="text-[#ffd500] text-center text-[4rem] mt-12">TOP RATED SERIES</h1>
             <div id="trendingMovies" className="grid grid-cols-4 w-full p-12 gap-2">
-                {trendingMovies.map((movie, index) => (
-                    <Panel key={index} movie={movie} index={index}/>
+                {trendingSeries.map((series, index) => (
+                    <SeriesPanel key={index} series={series} index={index}/>
                 ))}
             </div>
             <Footer />
@@ -38,4 +38,4 @@ const options = {
     );
 }
 
-export default TopRatedMovies;
+export default TopRatedSeries;
