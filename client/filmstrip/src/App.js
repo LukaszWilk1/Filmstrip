@@ -11,6 +11,7 @@ import TopRatedSeries from './TopRatedSeries';
 import Series from './Series';
 import Search from './Search';
 import PasswordChange from './PasswordChange';
+import DeleteAccount from './DeleteAccount';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/series" element={<TopRatedSeries/>}/>
           <Route path="/search" element={<Search/>}/>
           <Route path="/passwordChange" element={<PasswordChange/>}/>
+          <Route path="/deleteAccount" element={<DeleteAccount/>}/>
         </Route>
         <Route path="/register" element={<Register/>}/> 
         <Route path="/login" element={<Login/>}/>

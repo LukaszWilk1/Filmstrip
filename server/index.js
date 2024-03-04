@@ -172,6 +172,47 @@ app.post("/passwordChange", async(req, res) => {
             await db.query("UPDATE users SET user_password = $1 WHERE login = $2", [hash, req.body.login]);
             res.send("Password changed")
         }
+    });
+});
+
+app.delete("/deleteAccount", async(req, res) => {
+    console.log(req.query);
+    await db.query("Select user_password, id FROM users WHERE login LIKE $1", [req.query.login], (err, resDb) => {
+        if(err){
+            console.log("Error: ", err.stack);
+        } else {
+            const dataRows = resDb.rows;
+
+            if(dataRows.length !== 0){
+                bcrypt.compare(req.query.password, dataRows[0].user_password).then(result => {
+                    if(result){
+                        db.query("DELETE FROM users WHERE login = $1", [req.query.login], (err, resDb) => {
+                            if(err){
+                                console.log("ErrorL ", err.stack);
+                            } else {
+                                db.query("DELETE FROM users_comments WHERE user_id = $1", [dataRows[0].id], (err, resDb) => {
+                                    if(err){
+                                        console.log("Error: ", err.stack);
+                                    } else {
+                                        db.query("DELETE FROM users_series_comments WHERE user_id = $1", [dataRows[0].id], (err, resDb) => {
+                                            if(err){
+                                                console.log("Error: ", err.stack);
+                                            } else {
+                                                res.send({isPasswordCorrect: true});
+                                            }
+                                        })
+                                    }
+                                })
+                            }
+                        })
+                    } else {
+                        res.send({isPasswordCorrect: false});
+                    }
+                });
+            } else{
+                res.send({wrongUser: true});
+            }
+        }
     })
 })
 

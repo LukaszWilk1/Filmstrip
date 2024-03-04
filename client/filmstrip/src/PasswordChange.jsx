@@ -17,7 +17,7 @@ const PasswordChange = () => {
     const [areInputsEmpty, setAreInputsEmpty] = useState(true);
     const [arePasswordsDifferent, setArePasswordsDifferent] = useState(false);
 
-    const handleRegisterClick = () => {
+    const handleChangePasswordClick = () => {
 
       if(changePasswordData.newPassword !== '' && changePasswordData.repeatedPassword !==''){
         setAreInputsEmpty(true);
@@ -82,7 +82,7 @@ const PasswordChange = () => {
       </div>
 
       <div>
-        <button id="registerButton" type="submit" className="flex w-full justify-center rounded-md button-color px-3 py-1.5 text-sm font-semibold leading-6 color-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" onClick={handleRegisterClick}>Change Password</button>
+        <button id="registerButton" type="submit" className="flex w-full justify-center rounded-md button-color px-3 py-1.5 text-sm font-semibold leading-6 color-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" onClick={handleChangePasswordClick}>Change Password</button>
       </div>
   </div>
 </div>
