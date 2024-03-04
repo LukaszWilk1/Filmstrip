@@ -82,7 +82,7 @@ const Series = () => {
               <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Overviev: {seriesData.overview}</p>
               <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Rating: {seriesData.vote_average}</p>
               <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Genres: {seriesData.genres.map((genre, index) => (<span key={index}>{genre.name}{index !== seriesData.genres.length - 1 && ", "}</span>))}</p>
-              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Budget: {seriesData.budget}$</p></div>}
+              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Seasons: {seriesData.seasons.length-1}</p></div>}
             </div>
             <div id="comments" className="bg-white grid grid-cols-2 p-4 gap-2">
                 <div>
