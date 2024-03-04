@@ -162,7 +162,6 @@ app.delete("/seriesComments", async(req, res) => {
 });
 
 app.post("/passwordChange", async(req, res) => {
-    console.log(req.body);
     await db.query("UPDATE users SET user_password = $1 WHERE login = $2", [req.body.newPassword, req.body.login]);
 
     bcrypt.hash(req.body.newPassword, saltRounds, async (err, hash) => {
@@ -176,7 +175,6 @@ app.post("/passwordChange", async(req, res) => {
 });
 
 app.delete("/deleteAccount", async(req, res) => {
-    console.log(req.query);
     await db.query("Select user_password, id FROM users WHERE login LIKE $1", [req.query.login], (err, resDb) => {
         if(err){
             console.log("Error: ", err.stack);
