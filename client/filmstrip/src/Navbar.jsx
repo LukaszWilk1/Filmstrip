@@ -72,13 +72,13 @@ export const Navbar = () => {
                 </div>
               </div>
 
-              <Menu as="div" className="relative ml-3">
+              <Menu as="div" className="relative ml-3 mr-3">
                   <div>
                     <Menu.Button className="relative flex rounded-md bg-[#997f00] px-4 py-1.5">
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
                         <div className="relative inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-autoc sm:pr-0">
-                          {auth.user.login}!
+                          {auth.user.login}
                         </div>
                     </Menu.Button>
                   </div>

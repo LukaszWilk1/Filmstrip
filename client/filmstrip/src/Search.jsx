@@ -76,10 +76,10 @@ const options = {
             <div id="trendingMovies" className="sm:grid grid-cols-4 w-full p-12 gap-2">
             {results && results.map((result, index) => (
                 result.media_type === "movie" ? (
-                    <Panel key={index} movie={result} />
+                    <Panel key={index} movie={result} index={index}/>
                 ) : (
                 result.media_type === "tv" ? (
-                    <SeriesPanel key={index} series={result} />
+                    <SeriesPanel key={index} series={result} index={index}/>
                 ) : (
                     <></>
                 )
