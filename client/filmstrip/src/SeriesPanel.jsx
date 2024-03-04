@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 const SeriesPanel = ({ series, index }) => {
-    const imgSrc = 'https://image.tmdb.org/t/p/original/';
+    const imgSrc = 'https://image.tmdb.org/t/p/w500/';
     
     return (
         <Link key={index} to={"/series/" + series.id}>

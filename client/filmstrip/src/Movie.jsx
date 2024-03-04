@@ -15,7 +15,7 @@ const options = {
     }
   };
   
-  const imgSrc = 'https://image.tmdb.org/t/p/original/';
+  const imgSrc = 'https://image.tmdb.org/t/p/w500/';
 
 const Movie = () => {
 
