@@ -28,7 +28,7 @@ const options = {
         <div id="home" className="w-full h-full overflow-x-hidden">
             <Navbar />
             <h1 className="text-[#ffd500] text-center text-[4rem] mt-12">TOP RATED SERIES</h1>
-            <div id="trendingMovies" className="grid grid-cols-4 w-full p-12 gap-2">
+            <div id="trendingMovies" className="sm:grid grid-cols-4 w-full p-12 gap-2">
                 {trendingSeries.map((series, index) => (
                     <SeriesPanel key={index} series={series} index={index}/>
                 ))}
