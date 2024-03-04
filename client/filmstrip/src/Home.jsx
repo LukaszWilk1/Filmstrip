@@ -13,6 +13,8 @@ const options = {
 
   const Home = () => {
 
+    window.localStorage.setItem("search", '');
+
     const [trendingMovies, setTrendingMovies] = useState([]);
 
     useEffect(() => {

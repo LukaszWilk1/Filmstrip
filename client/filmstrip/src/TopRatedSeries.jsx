@@ -13,6 +13,8 @@ const options = {
 
   const TopRatedSeries = () => {
 
+    window.localStorage.setItem("search", '');
+
     const [trendingSeries, setTrendingSeries] = useState([]);
 
     useEffect(() => {

@@ -9,6 +9,7 @@ import Movie from './Movie';
 import TopRatedMovies from './TopRatedMovies';
 import TopRatedSeries from './TopRatedSeries';
 import Series from './Series';
+import Search from './Search';
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
           <Route path="/series/:seriesId" element={<Series/>}/>
           <Route path="/movies" element={<TopRatedMovies/>}/>
           <Route path="/series" element={<TopRatedSeries/>}/>
-          <Route path="/favourite" element={<Home/>}/>
+          <Route path="/search" element={<Search/>}/>
         </Route>
         <Route path="/register" element={<Register/>}/> 
         <Route path="/login" element={<Login/>}/>
