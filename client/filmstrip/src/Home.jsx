@@ -13,7 +13,7 @@ const Home = () => {
     const [trendingMovies, setTrendingMovies] = useState([]);
 
     useEffect(() => {
-        axios.get("https://filmstrip.onrender.com/")
+        axios.get("https://filmstrip.onrender.com/api")
         .then(response => {
             console.log(response);
             setTrendingMovies(response.data.results)
