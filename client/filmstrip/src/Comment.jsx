@@ -32,7 +32,7 @@ const Comment = prop => {
         if(comment!==''){
           setIsCommentInputEmpty(false);
           setComment('');
-          axios.put('http://localhost:3001/comments', {commentId: prop.commentId, newComment: comment})
+          axios.put(`http://localhost:3001/movie/${prop.movieId}`, {commentId: prop.commentId, newComment: comment})
             .then(response => {
               window.location.reload();
             })

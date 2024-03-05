@@ -172,7 +172,7 @@ app.post("/movie/:movieId", async (req, res) => {
     });
 });
 
-app.put("/comments", async(req, res) => {
+app.put("/movie/:movieId", async(req, res) => {
     await db.query("UPDATE users_comments SET comment_text = $1 WHERE comment_id = $2", [req.body.newComment, req.body.commentId], (err, dbRes) => {
         if(err){
             console.log(err.stack);
