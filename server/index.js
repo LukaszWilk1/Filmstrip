@@ -43,8 +43,8 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client/filmstrip/build')));
 
 app.get("*", function (request, response) {
-    response.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
-  });
+    response.sendFile(path.resolve(__dirname, "../client/filmstrip/build", "index.html"));
+});
 
 app.post("/login", async (req, res) => {
     await db.query("Select user_password, id FROM users WHERE login LIKE $1", [req.body.login], (err, resDb) => {
@@ -330,7 +330,12 @@ app.delete("/deleteAccount", async(req, res) => {
             }
         }
     })
-})
+});
+
+app.get("*", function (request, response) {
+    response.sendFile(path.resolve(__dirname, "../client/filmstrip/build", "index.html"));
+});
+
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
