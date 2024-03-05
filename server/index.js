@@ -4,6 +4,12 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import bcrypt from "bcrypt";
 import "dotenv/config";
+import path from "path";
+import {dirname} from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const db = new pg.Client({
     user: 'filmstrip_user',
