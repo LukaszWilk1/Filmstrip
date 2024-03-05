@@ -47,7 +47,7 @@ const Series = () => {
         setComment('');
         axios.post(`https://filmstrip.onrender.com/series/${params.seriesId}`, {userId: auth.user.id, comment: comment})
           .then(response => {
-            history.push('/current-page');
+            navigate(0);
           })
           .catch(function (error) {
             console.log(error);
