@@ -30,7 +30,7 @@ const Movie = () => {
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
-        axios.get(`https://localhost:3001/movie/${params.movieId}`)
+        axios.get(`https://filmstrip.onrender.com/movie/${params.movieId}`)
         .then(response => {
           setMovieData(response.data.movieData);
           setComments(response.data.comments);
@@ -52,7 +52,7 @@ const Movie = () => {
       if(comment!==''){
         setIsCommentInputEmpty(false);
         setComment('');
-        axios.post(`https://localhost:3001/movie/${params.movieId}`, {userId: auth.user.id, comment: comment})
+        axios.post(`https://filmstrip.onrender.com1/movie/${params.movieId}`, {userId: auth.user.id, comment: comment})
           .then(response => {
             window.location.reload();
           })

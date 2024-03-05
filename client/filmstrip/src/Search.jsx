@@ -17,7 +17,7 @@ const Search = () => {
 
   const searchFunction = (search) => {
     setLoading(true);
-    axios.post("https://localhost:3001/search", { search })
+    axios.post("https://filmstrip.onrender.com/search", { search })
       .then(response => {
         setResults(response.data.results);
         setLoading(false);

@@ -34,7 +34,7 @@ const Register = () => {
           document.getElementById("registerButton").disabled=true;
           document.getElementById("backButton").disabled=true;
           setArePasswordsDifferent(false);
-          axios.post('https://localhost:3001/register', {...regiserData})
+          axios.post('https://filmstrip.onrender.com/register', {...regiserData})
           .then(response => {
             document.getElementById("loginInput").disabled=false;
               document.getElementById("password").disabled=false;

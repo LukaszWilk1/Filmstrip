@@ -5,14 +5,6 @@ import SeriesPanel from "./SeriesPanel";
 import Loading from "./Loading";
 import axios from "axios";
 
-const options = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NjJlMmQ3MWM0MDMyMTMzMDk0YWE4MTNhNzdhZjFhMyIsInN1YiI6IjY1ZDM1MDZlZjQ5NWVlMDE3YzQwNWYwNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.3THJaqU3vl3xsAm4m7VaKGyULMNbsZKrbQzK8z82Hlc'
-    }
-  };
-
 const TopRatedSeries = () => {
 
     window.localStorage.setItem("search", '');
@@ -21,7 +13,7 @@ const TopRatedSeries = () => {
     const [trendingSeries, setTrendingSeries] = useState([]);
 
     useEffect(() => {
-        axios.get("https://localhost:3001/series")
+        axios.get("https://filmstrip.onrender.com/series")
         .then(response => {
             setTrendingSeries(response.data.results)
         })
