@@ -30,18 +30,14 @@ const Movie = () => {
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
-        fetch(`https://api.themoviedb.org/3/movie/${params.movieId}?language=en-US`, options)
-            .then(response => response.json())
-            .then(response => setMovieData(response))
-            .catch(err => console.error(err));
-
-        axios.get("http://localhost:3001/comments", {params: {movieId: params.movieId}})
+        axios.get(`http://localhost:3001/movie/${params.movieId}`)
         .then(response => {
-          setComments(response.data);
+          setMovieData(response.data.movieData);
+          setComments(response.data.comments);
         })
         .catch(err => {
           console.log(err.message);
-        })
+        });
     }, []);
 
     const handleAddCommentClick = () =>{
