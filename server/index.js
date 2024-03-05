@@ -26,13 +26,19 @@ db.connect();
 
 const saltRounds = process.env.SALT_ROUNDS;
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3001;
 
 const app = express();
 
 app.use(cors());
 
 app.use(bodyParser.json());
+
+app.use(express.static(path.join(__dirname, '../client/filmstrip/build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
 
 app.post("/login", async (req, res) => {
     await db.query("Select user_password, id FROM users WHERE login LIKE $1", [req.body.login], (err, resDb) => {
