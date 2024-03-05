@@ -6,8 +6,8 @@ import bcrypt from "bcrypt";
 import "dotenv/config";
 
 const db = new pg.Client({
-    user: 'postgres',
-    host: 'localhost',
+    user: 'filmstrip_user',
+    host: 'dpg-cnjkquen7f5s73fa17o0-a.frankfurt-postgres.render.com',
     database: 'filmstrip',
     password: process.env.DATABASE_PASSWORD,
     port: process.env.DATABASE_PORT,
