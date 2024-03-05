@@ -12,6 +12,7 @@ import Series from './Series';
 import Search from './Search';
 import PasswordChange from './PasswordChange';
 import DeleteAccount from './DeleteAccount';
+import NotFound from './NotFound';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         </Route>
         <Route path="/register" element={<Register/>}/> 
         <Route path="/login" element={<Login/>}/>
+        <Route path="*" element={<NotFound/>}/>
       </Routes>
     </BrowserRouter>
     </AuthProvider>
