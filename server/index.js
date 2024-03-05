@@ -42,10 +42,6 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, '../client/filmstrip/build')));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/filmstrip/build', 'index.html'));
-});
-
 app.post("/login", async (req, res) => {
     await db.query("Select user_password, id FROM users WHERE login LIKE $1", [req.body.login], (err, resDb) => {
         if(err){
