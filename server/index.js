@@ -50,61 +50,6 @@ app.get("/", (req,res) => {
         .catch(err => console.error(err))
 });
 
-app.get("*", function (request, response) {
-    response.sendFile(path.resolve(__dirname, "../client/filmstrip/build", "index.html"));
-});
-
-app.post("/login", async (req, res) => {
-    await db.query("Select user_password, id FROM users WHERE login LIKE $1", [req.body.login], (err, resDb) => {
-        if(err){
-            console.log("Error: ", err.stack);
-        } else {
-            const dataRows = resDb.rows;
-
-            if(dataRows.length !== 0){
-                bcrypt.compare(req.body.password, dataRows[0].user_password).then(result => {
-                    if(result){
-                        res.send({login: req.body.login, isPasswordCorrect: true, user_id: dataRows[0].id});
-                    } else {
-                        res.send({isPasswordCorrect: false});
-                    }
-                });
-            } else{
-                res.send({wrongUser: true});
-            }
-        }
-    })
-})
-
-app.post("/register", async (req, res) => {
-    await db.query("Select login FROM users", (err, resDb) => {
-        if(err){
-            console.log("Error: ", err.stack);
-        } else {
-            if(resDb.rows.find(dbLogin => dbLogin.login === req.body.login)){
-                res.send({isLoginTaken: true});
-            } else {
-                let id;
-                bcrypt.hash(req.body.password, saltRounds, async (err, hash) => {
-                    if(err){
-                        console.log(err.message);
-                    } else {
-                        db.query("INSERT INTO users (login, user_password) VALUES ($1, $2)", [req.body.login, hash]);
-                        db.query("SELECT id FROM users WHERE login LIKE $1", [req.body.login], (err, dataId) => {
-                            if(err){
-                                console.log("Error: ", err.stack);
-                            } else {
-                                id = dataId.rows[0].id;
-                                res.send({isPasswordCorrect: true, login: req.body.login, user_id: id});
-                            }
-                        });
-                    };
-                });
-            };
-        };
-    });
-});
-
 app.get("/movies", (req, res) => {
     fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options)
         .then(response => response.json())
@@ -136,7 +81,7 @@ app.post("/search", (req,res) => {
         .catch(err => {
           console.error(err);
         });
-})
+});
 
 app.get("/movie/:movieId", async (req, res) => {
 
@@ -172,7 +117,6 @@ app.get("/movie/:movieId", async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
-
 
 app.post("/movie/:movieId", async (req, res) => {
     await db.query("INSERT INTO users_comments (comment_text, user_id, movie_id) VALUES ($1, $2, $3);", [req.body.comment, req.body.userId, req.params.movieId], (err, dbRes) => {
@@ -279,6 +223,57 @@ app.delete("/series/:seriesId", async(req, res) => {
     });
 });
 
+app.post("/login", async (req, res) => {
+    await db.query("Select user_password, id FROM users WHERE login LIKE $1", [req.body.login], (err, resDb) => {
+        if(err){
+            console.log("Error: ", err.stack);
+        } else {
+            const dataRows = resDb.rows;
+
+            if(dataRows.length !== 0){
+                bcrypt.compare(req.body.password, dataRows[0].user_password).then(result => {
+                    if(result){
+                        res.send({login: req.body.login, isPasswordCorrect: true, user_id: dataRows[0].id});
+                    } else {
+                        res.send({isPasswordCorrect: false});
+                    }
+                });
+            } else{
+                res.send({wrongUser: true});
+            }
+        }
+    })
+})
+
+app.post("/register", async (req, res) => {
+    await db.query("Select login FROM users", (err, resDb) => {
+        if(err){
+            console.log("Error: ", err.stack);
+        } else {
+            if(resDb.rows.find(dbLogin => dbLogin.login === req.body.login)){
+                res.send({isLoginTaken: true});
+            } else {
+                let id;
+                bcrypt.hash(req.body.password, saltRounds, async (err, hash) => {
+                    if(err){
+                        console.log(err.message);
+                    } else {
+                        db.query("INSERT INTO users (login, user_password) VALUES ($1, $2)", [req.body.login, hash]);
+                        db.query("SELECT id FROM users WHERE login LIKE $1", [req.body.login], (err, dataId) => {
+                            if(err){
+                                console.log("Error: ", err.stack);
+                            } else {
+                                id = dataId.rows[0].id;
+                                res.send({isPasswordCorrect: true, login: req.body.login, user_id: id});
+                            }
+                        });
+                    };
+                });
+            };
+        };
+    });
+});
+
 app.post("/passwordChange", async(req, res) => {
     await db.query("UPDATE users SET user_password = $1 WHERE login = $2", [req.body.newPassword, req.body.login]);
 
@@ -330,6 +325,10 @@ app.delete("/deleteAccount", async(req, res) => {
             }
         }
     })
+});
+
+app.get("*", function (request, response) {
+    response.sendFile(path.resolve(__dirname, "../client/filmstrip/build", "index.html"));
 });
 
 app.listen(port, () => {
