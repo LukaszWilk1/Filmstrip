@@ -20,7 +20,7 @@ const Login = () => {
   const handleLoginClick = () => {
       if (loginData.login !== '' && loginData.password !== '') {
           setAreInputsEmpty(false);
-          axios.post('https://localhost:3001/login', { ...loginData })
+          axios.post('https://filmstrip.onrender.com/login', { ...loginData })
               .then(response => {
                   if (!response.data.wrongUser) {
                       setWrongUser(false);
