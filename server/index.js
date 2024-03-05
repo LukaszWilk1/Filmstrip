@@ -46,6 +46,14 @@ app.get("*", function (request, response) {
     response.sendFile(path.resolve(__dirname, "../client/filmstrip/build", "index.html"));
 });
 
+app.get("/", (req,res) => {
+    fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)
+        .then(response => {
+            res.send(response);
+        })
+        .catch(err => console.error(err))
+});
+
 app.post("/login", async (req, res) => {
     await db.query("Select user_password, id FROM users WHERE login LIKE $1", [req.body.login], (err, resDb) => {
         if(err){
@@ -95,14 +103,6 @@ app.post("/register", async (req, res) => {
             };
         };
     });
-});
-
-app.get("/", (req,res) => {
-    fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)
-        .then(response => {
-            res.send(response);
-        })
-        .catch(err => console.error(err))
 });
 
 app.get("/movies", (req, res) => {
