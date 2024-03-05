@@ -52,7 +52,7 @@ const Movie = () => {
       if(comment!==''){
         setIsCommentInputEmpty(false);
         setComment('');
-        axios.post('http://localhost:3001/comments', {userId: auth.user.id, movieId: params.movieId, comment: comment})
+        axios.post(`http://localhost:3001/movie/${params.movieId}`, {userId: auth.user.id, comment: comment})
           .then(response => {
             window.location.reload();
           })

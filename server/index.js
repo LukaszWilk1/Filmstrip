@@ -152,7 +152,6 @@ app.get("/movie/:movieId", async (req, res) => {
 
         if (dbResponse.length !== 0) {
             movieData.comments = dbResponse;
-            console.log("YOLO");
         }
 
         res.send(movieData);
@@ -163,8 +162,8 @@ app.get("/movie/:movieId", async (req, res) => {
 });
 
 
-app.post("/comments", async (req, res) => {
-    await db.query("INSERT INTO users_comments (comment_text, user_id, movie_id) VALUES ($1, $2, $3);", [req.body.comment, req.body.userId, req.body.movieId], (err, dbRes) => {
+app.post("/movie/:movieId", async (req, res) => {
+    await db.query("INSERT INTO users_comments (comment_text, user_id, movie_id) VALUES ($1, $2, $3);", [req.body.comment, req.body.userId, req.params.movieId], (err, dbRes) => {
         if(err){
             console.log(err.stack);
         } else {
