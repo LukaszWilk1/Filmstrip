@@ -3,6 +3,7 @@ import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
 import SeriesPanel from "./SeriesPanel";
 import Loading from "./Loading";
+import axios from "axios";
 
 const options = {
     method: 'GET',
@@ -20,16 +21,14 @@ const TopRatedSeries = () => {
     const [trendingSeries, setTrendingSeries] = useState([]);
 
     useEffect(() => {
-        fetch('https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1', options)
-        .then(response => response.json())
+        axios.get("http://localhost:3001/series")
         .then(response => {
-            setTrendingSeries(response.results);
-            setLoading(false); // Ustawienie loading na false po załadowaniu danych
+            setTrendingSeries(response.data.results)
         })
-        .catch(err => {
-            console.error(err);
-            setLoading(false); // W przypadku błędu również ustawiamy loading na false
-        });
+        .catch(err => console.error(err))
+        .finally(() => {
+            setLoading(false); // Ustawienie loading na false po załadowaniu danych
+        });   
     }, []);
 
     return (

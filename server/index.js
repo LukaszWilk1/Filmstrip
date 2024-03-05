@@ -102,7 +102,18 @@ app.get("/movies", (req, res) => {
         .catch(err => {
             console.error(err);
         });
-})
+});
+
+app.get("/series", (req, res) => {
+    fetch('https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1', options)
+        .then(response => response.json())
+        .then(response => {
+            res.send(response);
+        })
+        .catch(err => {
+            console.error(err);
+        });
+});
 
 app.get("/comments", async(req, res) => {
     await db.query("SELECT users.login, users_comments.comment_text, users_comments.movie_id, users_comments.comment_id FROM users JOIN users_comments ON users.id = users_comments.user_id where users_comments.movie_id = $1 order by users_comments.comment_date desc;", [req.query.movieId], (err, dbRes) => {
