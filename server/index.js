@@ -50,6 +50,10 @@ app.get("/", (req,res) => {
         .catch(err => console.error(err))
 });
 
+app.get("*", function (request, response) {
+    response.sendFile(path.resolve(__dirname, "../client/filmstrip/build", "index.html"));
+});
+
 app.post("/login", async (req, res) => {
     await db.query("Select user_password, id FROM users WHERE login LIKE $1", [req.body.login], (err, resDb) => {
         if(err){
@@ -327,11 +331,6 @@ app.delete("/deleteAccount", async(req, res) => {
         }
     })
 });
-
-app.get("*", function (request, response) {
-    response.sendFile(path.resolve(__dirname, "../client/filmstrip/build", "index.html"));
-});
-
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
