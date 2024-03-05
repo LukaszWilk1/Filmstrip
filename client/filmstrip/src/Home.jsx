@@ -15,6 +15,7 @@ const Home = () => {
     useEffect(() => {
         axios.get("https://filmstrip.onrender.com/")
         .then(response => {
+            console.log(response.data.results);
             setTrendingMovies(response.data.results)
         })
         .catch(err => console.error(err))
