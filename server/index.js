@@ -3,7 +3,7 @@ import pg from "pg";
 import bodyParser from "body-parser";
 import cors from "cors";
 import bcrypt from "bcrypt";
-import "dotenv/config"
+import "dotenv/config";
 
 const db = new pg.Client({
     user: 'postgres',
@@ -12,6 +12,14 @@ const db = new pg.Client({
     password: process.env.DATABASE_PASSWORD,
     port: process.env.DATABASE_PORT,
 });
+
+const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NjJlMmQ3MWM0MDMyMTMzMDk0YWE4MTNhNzdhZjFhMyIsInN1YiI6IjY1ZDM1MDZlZjQ5NWVlMDE3YzQwNWYwNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.3THJaqU3vl3xsAm4m7VaKGyULMNbsZKrbQzK8z82Hlc'
+    }
+  };
 
 db.connect();
 
@@ -69,12 +77,21 @@ app.post("/register", async (req, res) => {
                                 res.send({isPasswordCorrect: true, login: req.body.login, user_id: id});
                             }
                         });
-                    }
-                })
+                    };
+                });
+            };
+        };
+    });
+});
 
-            }
-        }
-    })
+app.get("/", (req,res) => {
+    fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)
+        .then(response => response.json())
+        .then(response => {
+            console.log(response);
+            res.send(response);
+        })
+        .catch(err => console.error(err))
 })
 
 app.get("/comments", async(req, res) => {
