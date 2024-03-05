@@ -88,10 +88,20 @@ app.get("/", (req,res) => {
     fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)
         .then(response => response.json())
         .then(response => {
-            console.log(response);
             res.send(response);
         })
         .catch(err => console.error(err))
+});
+
+app.get("/movies", (req, res) => {
+    fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options)
+        .then(response => response.json())
+        .then(response => {
+            res.send(response);
+        })
+        .catch(err => {
+            console.error(err);
+        });
 })
 
 app.get("/comments", async(req, res) => {

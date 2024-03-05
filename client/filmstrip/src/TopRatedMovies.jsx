@@ -3,33 +3,24 @@ import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
 import Panel from "./Panel";
 import Loading from "./Loading";
-
-const options = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NjJlMmQ3MWM0MDMyMTMzMDk0YWE4MTNhNzdhZjFhMyIsInN1YiI6IjY1ZDM1MDZlZjQ5NWVlMDE3YzQwNWYwNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.3THJaqU3vl3xsAm4m7VaKGyULMNbsZKrbQzK8z82Hlc'
-    }
-  };
+import axios from "axios";
 
 const TopRatedMovies = () => {
 
     window.localStorage.setItem("search", '');
 
     const [loading, setLoading] = useState(true);
-    const [trendingMovies, setTrendingMovies] = useState([]);
+    const [topRatedMovies, setTopRatedMovies] = useState([]);
 
     useEffect(() => {
-        fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options)
-        .then(response => response.json())
+        axios.get("http://localhost:3001/movies")
         .then(response => {
-            setTrendingMovies(response.results);
-            setLoading(false); // Ustawienie loading na false po załadowaniu danych
+            setTopRatedMovies(response.data.results)
         })
-        .catch(err => {
-            console.error(err);
-            setLoading(false); // W przypadku błędu również ustawiamy loading na false
-        });
+        .catch(err => console.error(err))
+        .finally(() => {
+            setLoading(false); // Ustawienie loading na false po załadowaniu danych
+        }); 
     }, []);
 
     return (
@@ -39,8 +30,8 @@ const TopRatedMovies = () => {
             {loading ? ( // Wyświetlanie Loading jeśli loading jest true
                 <Loading />
             ) : (
-                <div id="trendingMovies" className="grid grid-cols-4 w-full p-12 gap-2">
-                    {trendingMovies.map((movie, index) => (
+                <div id="topRatedMovies" className="grid grid-cols-4 w-full p-12 gap-2">
+                    {topRatedMovies.map((movie, index) => (
                         <Panel key={index} movie={movie} index={index}/>
                     ))}
                 </div>
