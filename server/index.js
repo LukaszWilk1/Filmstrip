@@ -126,35 +126,41 @@ app.post("/search", (req,res) => {
         });
 })
 
-app.get("/movie/:movieId", async(req, res) => {
+app.get("/movie/:movieId", async (req, res) => {
 
     const movieData = {
         movieData: null,
         comments: null
-    }
-    
-    await fetch(`https://api.themoviedb.org/3/movie/${req.params.movieId}?language=en-US`, options)
-    .then(response => {
-        return response.json();
-    })
-    .then(movieApiResponse => {
-        movieData.movieData = movieApiResponse;
-        db.query("SELECT users.login, users_comments.comment_text, users_comments.movie_id, users_comments.comment_id FROM users JOIN users_comments ON users.id = users_comments.user_id where users_comments.movie_id = $1 order by users_comments.comment_date desc;", [req.params.movieId], (err, dbRes) => {
-            if(err){
-                console.log("Error: ", err.stack);
-            } else {
-                if(dbRes.rows.length!==0){
-                    movieData.comments = dbRes.rows;
-                    res.send(movieData);
-                }
-            }
-        });
-    })
-    .catch(err => {
-        console.error(err);
-    });
-})
+    };
 
+    try {
+        const movieApiResponse = await fetch(`https://api.themoviedb.org/3/movie/${req.params.movieId}?language=en-US`, options);
+        const movieApiData = await movieApiResponse.json();
+
+        movieData.movieData = movieApiData;
+
+        const dbResponse = await new Promise((resolve, reject) => {
+            db.query("SELECT users.login, users_comments.comment_text, users_comments.movie_id, users_comments.comment_id FROM users JOIN users_comments ON users.id = users_comments.user_id where users_comments.movie_id = $1 order by users_comments.comment_date desc;", [req.params.movieId], (err, dbRes) => {
+                if (err) {
+                    console.log("Error: ", err.stack);
+                    reject(err);
+                } else {
+                    resolve(dbRes.rows);
+                }
+            });
+        });
+
+        if (dbResponse.length !== 0) {
+            movieData.comments = dbResponse;
+            console.log("YOLO");
+        }
+
+        res.send(movieData);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
 
 
 app.post("/comments", async (req, res) => {
