@@ -257,7 +257,7 @@ app.put("/seriesComments", async(req, res) => {
     });
 });
 
-app.delete("/seriesComments", async(req, res) => {
+app.delete("/series/:seriesId", async(req, res) => {
     await db.query("DELETE FROM users_series_comments WHERE comment_id=$1", [req.query.commentId], (err, dbRes) => {
         if(err){
             console.log(err.stack);

@@ -15,7 +15,7 @@ const SeriesComment = prop => {
     };
 
     const handleDeleteClick = () => {
-        axios.delete("http://localhost:3001/seriesComments", {params: {commentId: prop.commentId}})
+        axios.delete(`http://localhost:3001/series/${prop.seriesId}`, {params: {commentId: prop.commentId}})
         .then(response => {
             window.location.reload();
           })
