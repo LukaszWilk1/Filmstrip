@@ -42,10 +42,6 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, '../client/filmstrip/build')));
 
-app.get("*", function (request, response) {
-    response.sendFile(path.resolve(__dirname, "../client/filmstrip/build", "index.html"));
-});
-
 app.get("/", (req,res) => {
     fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)
         .then(response => {
