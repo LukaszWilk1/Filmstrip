@@ -15,7 +15,7 @@ const SeriesComment = prop => {
     };
 
     const handleDeleteClick = () => {
-        axios.delete("http://localhost:3001/seriesComments", {params: {commentId: prop.commentId}})
+        axios.delete(`http://localhost:3001/series/${prop.seriesId}`, {params: {commentId: prop.commentId}})
         .then(response => {
             window.location.reload();
           })
@@ -32,7 +32,7 @@ const SeriesComment = prop => {
         if(comment!==''){
           setIsCommentInputEmpty(false);
           setComment('');
-          axios.put('http://localhost:3001/seriesComments', {commentId: prop.commentId, newComment: comment})
+          axios.put(`http://localhost:3001/series/${prop.seriesId}`, {commentId: prop.commentId, newComment: comment})
             .then(response => {
               window.location.reload();
             })

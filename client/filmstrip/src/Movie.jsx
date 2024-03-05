@@ -30,18 +30,14 @@ const Movie = () => {
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
-        fetch(`https://api.themoviedb.org/3/movie/${params.movieId}?language=en-US`, options)
-            .then(response => response.json())
-            .then(response => setMovieData(response))
-            .catch(err => console.error(err));
-
-        axios.get("http://localhost:3001/comments", {params: {movieId: params.movieId}})
+        axios.get(`http://localhost:3001/movie/${params.movieId}`)
         .then(response => {
-          setComments(response.data);
+          setMovieData(response.data.movieData);
+          setComments(response.data.comments);
         })
         .catch(err => {
           console.log(err.message);
-        })
+        });
     }, []);
 
     const handleAddCommentClick = () =>{
@@ -56,7 +52,7 @@ const Movie = () => {
       if(comment!==''){
         setIsCommentInputEmpty(false);
         setComment('');
-        axios.post('http://localhost:3001/comments', {userId: auth.user.id, movieId: params.movieId, comment: comment})
+        axios.post(`http://localhost:3001/movie/${params.movieId}`, {userId: auth.user.id, comment: comment})
           .then(response => {
             window.location.reload();
           })
@@ -81,10 +77,10 @@ const Movie = () => {
               <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">{movieData.tagline}</p>
               <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Overviev: {movieData.overview}</p>
               <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Rating: {movieData.vote_average}</p>
-              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Genres: {movieData.genres.map((genre, index) => (<span key={index}>{genre.name}{index !== movieData.genres.length - 1 && ", "}</span>))}</p>
+              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Genres: {movieData.genres && movieData.genres.map((genre, index) => (<span key={index}>{genre.name}{index !== movieData.genres.length - 1 && ", "}</span>))}</p>
               <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Budget: {movieData.budget}$</p></div>}
             </div>
-            <div id="comments" className="bg-white grid grid-cols-2 p-4 gap-2">
+            <div id="comments" className="bg-white grid grid-cols-2 p-8 gap-2">
                 <div>
                     <p className="text-[2em]">Comments</p>
                 </div>
