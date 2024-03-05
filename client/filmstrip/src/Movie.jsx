@@ -52,9 +52,9 @@ const Movie = () => {
       if(comment!==''){
         setIsCommentInputEmpty(false);
         setComment('');
-        axios.post(`https://filmstrip.onrender.com1/movie/${params.movieId}`, {userId: auth.user.id, comment: comment})
+        axios.post(`https://filmstrip.onrender.com/movie/${params.movieId}`, {userId: auth.user.id, comment: comment})
           .then(response => {
-            window.location.reload();
+            setComments(...comments, {comment_text: comment});
           })
           .catch(function (error) {
             console.log(error);
