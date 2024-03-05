@@ -105,8 +105,8 @@ app.post("/register", async (req, res) => {
     });
 });
 
-app.get("/", (req,res) => {
-    fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)
+app.get("/", async(req,res) => {
+    await fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)
         .then(response => response.json())
         .then(response => {
             res.send(response);
