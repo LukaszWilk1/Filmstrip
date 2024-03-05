@@ -11,6 +11,7 @@ const db = new pg.Client({
     database: 'filmstrip',
     password: process.env.DATABASE_PASSWORD,
     port: process.env.DATABASE_PORT,
+    ssl: true
 });
 
 const options = {
