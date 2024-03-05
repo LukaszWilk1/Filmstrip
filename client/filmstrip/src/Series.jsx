@@ -23,7 +23,7 @@ const Series = () => {
 
     useEffect(() => {
 
-        axios.get(`http://localhost:3001/series/${params.seriesId}`)
+        axios.get(`https://localhost:3001/series/${params.seriesId}`)
         .then(response => {
           setSeriesData(response.data.movieData);
           setComments(response.data.comments);
@@ -45,7 +45,7 @@ const Series = () => {
       if(comment!==''){
         setIsCommentInputEmpty(false);
         setComment('');
-        axios.post(`http://localhost:3001/series/${params.seriesId}`, {userId: auth.user.id, comment: comment})
+        axios.post(`https://localhost:3001/series/${params.seriesId}`, {userId: auth.user.id, comment: comment})
           .then(response => {
             window.location.reload();
           })

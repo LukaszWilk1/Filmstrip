@@ -30,7 +30,7 @@ const options = {
 
 db.connect();
 
-const saltRounds = process.env.SALT_ROUNDS;
+const saltRounds = 10;
 
 const port = process.env.PORT || 3001;
 

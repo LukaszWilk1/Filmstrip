@@ -17,7 +17,7 @@ const Search = () => {
 
   const searchFunction = (search) => {
     setLoading(true);
-    axios.post("http://localhost:3001/search", { search })
+    axios.post("https://localhost:3001/search", { search })
       .then(response => {
         setResults(response.data.results);
         setLoading(false);

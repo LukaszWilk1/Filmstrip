@@ -21,7 +21,7 @@ const TopRatedSeries = () => {
     const [trendingSeries, setTrendingSeries] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:3001/series")
+        axios.get("https://localhost:3001/series")
         .then(response => {
             setTrendingSeries(response.data.results)
         })

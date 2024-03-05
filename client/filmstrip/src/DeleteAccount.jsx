@@ -18,7 +18,7 @@ const DeleteAccount = () => {
 
       if(password !== ''){
         setIsInputEmpty(true);
-        axios.delete("http://localhost:3001/deleteAccount", {params: {login: auth.user.login, password: password}})
+        axios.delete("https://localhost:3001/deleteAccount", {params: {login: auth.user.login, password: password}})
         .then(response => {
             if(response.data.isPasswordCorrect){
                 setIsPasswordCorrect(true);

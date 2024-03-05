@@ -13,7 +13,7 @@ const Home = () => {
     const [trendingMovies, setTrendingMovies] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:3001/")
+        axios.get("https://localhost:3001/")
         .then(response => {
             setTrendingMovies(response.data.results)
         })
