@@ -6,16 +6,8 @@ import axios from "axios";
 import { useAuth } from "./auth";
 import SeriesComment from "./SeriesComment";
 import { useNavigate } from "react-router-dom";
-
-const options = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NjJlMmQ3MWM0MDMyMTMzMDk0YWE4MTNhNzdhZjFhMyIsInN1YiI6IjY1ZDM1MDZlZjQ5NWVlMDE3YzQwNWYwNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.3THJaqU3vl3xsAm4m7VaKGyULMNbsZKrbQzK8z82Hlc'
-    }
-  };
   
-  const imgSrc = 'https://image.tmdb.org/t/p/w500/';
+const imgSrc = 'https://image.tmdb.org/t/p/w500/';
 
 const Series = () => {
 
@@ -30,18 +22,15 @@ const Series = () => {
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
-        fetch(`https://api.themoviedb.org/3/tv/${params.seriesId}?language=en-US`, options)
-            .then(response => response.json())
-            .then(response => setSeriesData(response))
-            .catch(err => console.error(err));
 
-        axios.get("http://localhost:3001/seriesComments", {params: {seriesId: params.seriesId}})
+        axios.get(`http://localhost:3001/series/${params.seriesId}`)
         .then(response => {
-          setComments(response.data);
+          setSeriesData(response.data.movieData);
+          setComments(response.data.comments);
         })
         .catch(err => {
           console.log(err.message);
-        })
+        });
     }, []);
 
     const handleAddCommentClick = () =>{

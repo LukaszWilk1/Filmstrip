@@ -192,7 +192,40 @@ app.delete("/movie/:movieId", async(req, res) => {
     });
 });
 
-app.get("/seriesComments", async(req, res) => {
+app.get("/series/:seriesId", async(req, res) => {
+
+    const seriesData = {
+        movieData: null,
+        comments: null
+    };
+
+    try {
+        const seriesApiResponse = await fetch(`https://api.themoviedb.org/3/tv/${req.params.seriesId}?language=en-US`, options);
+        const seriesApiData = await seriesApiResponse.json();
+
+        seriesData.movieData = seriesApiData;
+
+        const dbResponse = await new Promise((resolve, reject) => {
+            db.query("SELECT users.login, users_series_comments.comment_text, users_series_comments.series_id, users_series_comments.comment_id FROM users JOIN users_series_comments ON users.id = users_series_comments.user_id where users_series_comments.series_id = $1 order by users_series_comments.comment_date desc;", [req.params.seriesId], (err, dbRes) => {
+                if (err) {
+                    console.log("Error: ", err.stack);
+                    reject(err);
+                } else {
+                    resolve(dbRes.rows);
+                }
+            });
+        });
+
+        if (dbResponse.length !== 0) {
+            seriesData.comments = dbResponse;
+        }
+
+        res.send(seriesData);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
+
     await db.query("SELECT users.login, users_series_comments.comment_text, users_series_comments.series_id, users_series_comments.comment_id FROM users JOIN users_series_comments ON users.id = users_series_comments.user_id where users_series_comments.series_id = $1 order by users_series_comments.comment_date desc;", [req.query.seriesId], (err, dbRes) => {
         if(err){
             console.log("Error: ", err.stack);
