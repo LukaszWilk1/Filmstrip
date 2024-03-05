@@ -182,7 +182,7 @@ app.put("/comments", async(req, res) => {
     });
 });
 
-app.delete("/comments", async(req, res) => {
+app.delete("/movie/:movieId", async(req, res) => {
     await db.query("DELETE FROM users_comments WHERE comment_id=$1", [req.query.commentId], (err, dbRes) => {
         if(err){
             console.log(err.stack);
