@@ -77,7 +77,7 @@ const Movie = () => {
               <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">{movieData.tagline}</p>
               <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Overviev: {movieData.overview}</p>
               <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Rating: {movieData.vote_average}</p>
-              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Genres: {movieData.genres.map((genre, index) => (<span key={index}>{genre.name}{index !== movieData.genres.length - 1 && ", "}</span>))}</p>
+              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Genres: {movieData.genres && movieData.genres.map((genre, index) => (<span key={index}>{genre.name}{index !== movieData.genres.length - 1 && ", "}</span>))}</p>
               <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Budget: {movieData.budget}$</p></div>}
             </div>
             <div id="comments" className="bg-white grid grid-cols-2 p-4 gap-2">

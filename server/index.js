@@ -247,7 +247,7 @@ app.post("/series/:seriesId", async (req, res) => {
     });
 });
 
-app.put("/seriesComments", async(req, res) => {
+app.put("/series/:seriesId", async(req, res) => {
     await db.query("UPDATE users_series_comments SET comment_text = $1 WHERE comment_id = $2", [req.body.newComment, req.body.commentId], (err, dbRes) => {
         if(err){
             console.log(err.stack);
