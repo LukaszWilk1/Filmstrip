@@ -45,7 +45,7 @@ const Series = () => {
       if(comment!==''){
         setIsCommentInputEmpty(false);
         setComment('');
-        axios.post('http://localhost:3001/seriesComments', {userId: auth.user.id, seriesId: params.seriesId, comment: comment})
+        axios.post(`http://localhost:3001/series/${params.seriesId}`, {userId: auth.user.id, comment: comment})
           .then(response => {
             window.location.reload();
           })
@@ -73,7 +73,7 @@ const Series = () => {
               <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Genres: {seriesData.genres.map((genre, index) => (<span key={index}>{genre.name}{index !== seriesData.genres.length - 1 && ", "}</span>))}</p>
               <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Seasons: {seriesData.seasons.length-1}</p></div>}
             </div>
-            <div id="comments" className="bg-white grid grid-cols-2 p-4 gap-2">
+            <div id="comments" className="bg-white grid grid-cols-2 p-8 gap-2">
                 <div>
                     <p className="text-[2em]">Comments</p>
                 </div>

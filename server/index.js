@@ -237,8 +237,8 @@ app.get("/series/:seriesId", async(req, res) => {
     });
 });
 
-app.post("/seriesComments", async (req, res) => {
-    await db.query("INSERT INTO users_series_comments (comment_text, user_id, series_id) VALUES ($1, $2, $3);", [req.body.comment, req.body.userId, req.body.seriesId], (err, dbRes) => {
+app.post("/series/:seriesId", async (req, res) => {
+    await db.query("INSERT INTO users_series_comments (comment_text, user_id, series_id) VALUES ($1, $2, $3);", [req.body.comment, req.body.userId, req.params.seriesId], (err, dbRes) => {
         if(err){
             console.log(err.stack);
         } else {
