@@ -7,7 +7,7 @@ import { useAuth } from "./auth";
 import Comment from "./Comment";
 import { useNavigate } from "react-router-dom";
   
-  const imgSrc = 'https://image.tmdb.org/t/p/w500/';
+const imgSrc = 'https://image.tmdb.org/t/p/w500/';
 
 const Movie = () => {
 
@@ -44,9 +44,9 @@ const Movie = () => {
       if(comment!==''){
         setIsCommentInputEmpty(false);
         setComment('');
-        axios.post(`https://filmstrip.onrender.com/api/movie/${params.movieId}`, {userId: auth.user.id, comment: comment})
+        axios.post(`https://filmstrip.onrender.com/api/movie/${params.movieId}` , {userId: auth.user.id, comment: comment})
           .then(response => {
-            setComments(...comments, {comment_text: comment});
+            window.location.reload();
           })
           .catch(function (error) {
             console.log(error);
