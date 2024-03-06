@@ -15,7 +15,7 @@ const Comment = prop => {
     };
 
     const handleDeleteClick = () => {
-        axios.delete(`https://filmstrip.onrender.com/mapi/ovie/${prop.movieId}`, {params: {commentId: prop.commentId}})
+        axios.delete(`https://filmstrip.onrender.com/api/movie/${prop.movieId}`, {params: {commentId: prop.commentId}})
         .then(response => {
             window.location.reload();
           })
