@@ -6,14 +6,6 @@ import axios from "axios";
 import { useAuth } from "./auth";
 import Comment from "./Comment";
 import { useNavigate } from "react-router-dom";
-
-const options = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NjJlMmQ3MWM0MDMyMTMzMDk0YWE4MTNhNzdhZjFhMyIsInN1YiI6IjY1ZDM1MDZlZjQ5NWVlMDE3YzQwNWYwNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.3THJaqU3vl3xsAm4m7VaKGyULMNbsZKrbQzK8z82Hlc'
-    }
-  };
   
   const imgSrc = 'https://image.tmdb.org/t/p/w500/';
 
@@ -30,7 +22,7 @@ const Movie = () => {
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
-        axios.get(`https://filmstrip.onrender.com/movie/${params.movieId}`)
+        axios.get(`https://filmstrip.onrender.com/api/movie/${params.movieId}`)
         .then(response => {
           setMovieData(response.data.movieData);
           setComments(response.data.comments);
@@ -52,7 +44,7 @@ const Movie = () => {
       if(comment!==''){
         setIsCommentInputEmpty(false);
         setComment('');
-        axios.post(`https://filmstrip.onrender.com/movie/${params.movieId}`, {userId: auth.user.id, comment: comment})
+        axios.post(`https://filmstrip.onrender.com/api/movie/${params.movieId}`, {userId: auth.user.id, comment: comment})
           .then(response => {
             setComments(...comments, {comment_text: comment});
           })

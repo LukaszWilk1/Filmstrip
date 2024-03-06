@@ -62,7 +62,7 @@ app.get("/api/movies", (req, res) => {
         });
 });
 
-app.get("/series", (req, res) => {
+app.get("/api/series", (req, res) => {
     fetch('https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1', options)
         .then(response => response.json())
         .then(response => {
@@ -84,7 +84,7 @@ app.post("/search", (req,res) => {
         });
 });
 
-app.get("/movie/:movieId", async (req, res) => {
+app.get("/api/movie/:movieId", async (req, res) => {
 
     const movieData = {
         movieData: null,
@@ -119,7 +119,7 @@ app.get("/movie/:movieId", async (req, res) => {
     }
 });
 
-app.post("/movie/:movieId", async (req, res) => {
+app.post("/api/movie/:movieId", async (req, res) => {
     await db.query("INSERT INTO users_comments (comment_text, user_id, movie_id) VALUES ($1, $2, $3);", [req.body.comment, req.body.userId, req.params.movieId], (err, dbRes) => {
         if(err){
             console.log(err.stack);
@@ -129,7 +129,7 @@ app.post("/movie/:movieId", async (req, res) => {
     });
 });
 
-app.put("/movie/:movieId", async(req, res) => {
+app.put("/api/movie/:movieId", async(req, res) => {
     await db.query("UPDATE users_comments SET comment_text = $1 WHERE comment_id = $2", [req.body.newComment, req.body.commentId], (err, dbRes) => {
         if(err){
             console.log(err.stack);
@@ -139,7 +139,7 @@ app.put("/movie/:movieId", async(req, res) => {
     });
 });
 
-app.delete("/movie/:movieId", async(req, res) => {
+app.delete("/api/movie/:movieId", async(req, res) => {
     await db.query("DELETE FROM users_comments WHERE comment_id=$1", [req.query.commentId], (err, dbRes) => {
         if(err){
             console.log(err.stack);
@@ -149,7 +149,7 @@ app.delete("/movie/:movieId", async(req, res) => {
     });
 });
 
-app.get("/series/:seriesId", async(req, res) => {
+app.get("/api/series/:seriesId", async(req, res) => {
 
     const seriesData = {
         movieData: null,
@@ -194,7 +194,7 @@ app.get("/series/:seriesId", async(req, res) => {
     });
 });
 
-app.post("/series/:seriesId", async (req, res) => {
+app.post("/api/series/:seriesId", async (req, res) => {
     await db.query("INSERT INTO users_series_comments (comment_text, user_id, series_id) VALUES ($1, $2, $3);", [req.body.comment, req.body.userId, req.params.seriesId], (err, dbRes) => {
         if(err){
             console.log(err.stack);
@@ -204,7 +204,7 @@ app.post("/series/:seriesId", async (req, res) => {
     });
 });
 
-app.put("/series/:seriesId", async(req, res) => {
+app.put("/api/series/:seriesId", async(req, res) => {
     await db.query("UPDATE users_series_comments SET comment_text = $1 WHERE comment_id = $2", [req.body.newComment, req.body.commentId], (err, dbRes) => {
         if(err){
             console.log(err.stack);
@@ -214,7 +214,7 @@ app.put("/series/:seriesId", async(req, res) => {
     });
 });
 
-app.delete("/series/:seriesId", async(req, res) => {
+app.delete("/api/series/:seriesId", async(req, res) => {
     await db.query("DELETE FROM users_series_comments WHERE comment_id=$1", [req.query.commentId], (err, dbRes) => {
         if(err){
             console.log(err.stack);

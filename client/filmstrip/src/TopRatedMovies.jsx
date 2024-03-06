@@ -30,7 +30,7 @@ const TopRatedMovies = () => {
             {loading ? ( // Wyświetlanie Loading jeśli loading jest true
                 <Loading />
             ) : (
-                <div id="topRatedMovies" className="grid grid-cols-4 w-full p-12 gap-2">
+                <div id="topRatedMovies" className="sm:grid grid-cols-4 w-full p-12 gap-2">
                     {topRatedMovies.map((movie, index) => (
                         <Panel key={index} movie={movie} index={index}/>
                     ))}
