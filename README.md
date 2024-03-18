@@ -2,8 +2,17 @@
 ## Overview
 Filmstrip is my first fullstack project. It is simple web application made using PERN stack, using TMDB API. On filmstrip you can easilly find favourite movies, series and get all necesarry information about them. I provided simple login authentication. On filmstrip you can discuss with other users about your favourite movies!
 ## Instalation
+Clone repository
 ```
-Siemano
+git clone https://github.com/LukaszWilk1/Filmstrip.git
+```
+Install Dependecies (while in root folder)
+```
+cd Filmstrip/client/filmstrip && npm install
+```
+Run application
+```
+npm start
 ```
 ## Dependencies
 🔧 Filmstrip is a fullstack application built using the PERN stack.
