@@ -37,3 +37,6 @@ npm start
 
 ✨ Tailwind CSS was used to make the user interface more engaging.
 
+## Credits
+This application was built using [TMDB API](https://www.themoviedb.org/?language=pl)
+
