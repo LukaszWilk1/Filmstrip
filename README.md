@@ -14,7 +14,7 @@ Run application
 ```
 npm start
 ```
-## Dependencies
+## Tehchnologies
 🔧 Filmstrip is a fullstack application built using the PERN stack.
 
 🔗 It utilizes React Router for seamless navigation between pages.
