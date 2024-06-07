@@ -12,12 +12,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const db = new pg.Client({
-    user: 'filmstrip_user',
-    host: 'dpg-cnjkquen7f5s73fa17o0-a.frankfurt-postgres.render.com',
+    user: 'postgres',
+    host: 'database',
     database: 'filmstrip',
     password: process.env.DATABASE_PASSWORD,
     port: process.env.DATABASE_PORT,
-    ssl: true
+    ssl: false
 });
 
 const options = {
@@ -28,7 +28,9 @@ const options = {
     }
   };
 
-db.connect();
+db.connect()
+.then(() => console.log('Connected to the database'))
+.catch(err => console.error('Connection error', err.stack));
 
 const saltRounds = 10;
 
@@ -40,7 +42,7 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname, '../client/filmstrip/build')));
+//app.use(express.static(path.join(__dirname, '../client/filmstrip/build')));
 
 app.get("/api", (req,res) => {
     fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)
