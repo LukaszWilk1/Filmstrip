@@ -19,6 +19,7 @@ services:
     env_file:
       - ./server/.env
     volumes:
-      - ./server:/app/server
+      - /app/node_modules
+      - ./server:/app
     ports:
       - 3001:3001
