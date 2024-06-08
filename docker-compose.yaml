@@ -23,3 +23,18 @@ services:
       - ./server:/app
     ports:
       - 3001:3001
+  frontend:
+    container_name: frontend
+    build:
+      context: ./client/filmstrip
+      dockerfile: Dockerfile
+    volumes:
+      - ./client/filmstrip/src:/app/src
+      - ./client/filmstrip/public:/app/public
+      - /app/node_modules
+    ports:
+      - 3000:3000
+    environment:
+      - WDS_SOCKET_HOST=127.0.0.1 
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
