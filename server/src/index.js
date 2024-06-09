@@ -75,7 +75,7 @@ app.get("/api/series", (req, res) => {
         });
 });
 
-app.post("/search", (req,res) => {
+app.post("/api/search", (req,res) => {
     fetch(`https://api.themoviedb.org/3/search/multi?query=${req.body.search}&include_adult=true&language=en-US&page=1`, options)
         .then(response => response.json())
         .then(response => {
@@ -226,7 +226,7 @@ app.delete("/api/series/:seriesId", async(req, res) => {
     });
 });
 
-app.post("/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
     await db.query("Select user_password, id FROM users WHERE login LIKE $1", [req.body.login], (err, resDb) => {
         if(err){
             console.log("Error: ", err.stack);
@@ -248,7 +248,7 @@ app.post("/login", async (req, res) => {
     })
 })
 
-app.post("/register", async (req, res) => {
+app.post("/api/register", async (req, res) => {
     await db.query("Select login FROM users", (err, resDb) => {
         if(err){
             console.log("Error: ", err.stack);
@@ -277,7 +277,7 @@ app.post("/register", async (req, res) => {
     });
 });
 
-app.post("/passwordChange", async(req, res) => {
+app.post("/api/passwordChange", async(req, res) => {
     await db.query("UPDATE users SET user_password = $1 WHERE login = $2", [req.body.newPassword, req.body.login]);
 
     bcrypt.hash(req.body.newPassword, saltRounds, async (err, hash) => {
@@ -290,7 +290,7 @@ app.post("/passwordChange", async(req, res) => {
     });
 });
 
-app.delete("/deleteAccount", async(req, res) => {
+app.delete("/api/deleteAccount", async(req, res) => {
     await db.query("Select user_password, id FROM users WHERE login LIKE $1", [req.query.login], (err, resDb) => {
         if(err){
             console.log("Error: ", err.stack);

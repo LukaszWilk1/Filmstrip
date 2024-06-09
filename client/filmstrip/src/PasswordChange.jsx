@@ -24,7 +24,7 @@ const PasswordChange = () => {
         if(changePasswordData.newPassword === changePasswordData.repeatedPassword){
             setArePasswordsDifferent(false);
             const login = auth.user.login;
-            axios.post("https://filmstrip.onrender.com/passwordChange", {...changePasswordData, login})
+            axios.post("/api/passwordChange", {...changePasswordData, login})
             .then(response => {
                 navigate("/");
             })

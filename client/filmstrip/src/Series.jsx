@@ -23,7 +23,7 @@ const Series = () => {
 
     useEffect(() => {
 
-        axios.get(`https://filmstrip.onrender.com/api/series/${params.seriesId}`)
+        axios.get(`/api/series/${params.seriesId}`)
         .then(response => {
           setSeriesData(response.data.movieData);
           setComments(response.data.comments);
@@ -45,7 +45,7 @@ const Series = () => {
       if(comment!==''){
         setIsCommentInputEmpty(false);
         setComment('');
-        axios.post(`https://filmstrip.onrender.com/api/series/${params.seriesId}`, {userId: auth.user.id, comment: comment})
+        axios.post(`/api/series/${params.seriesId}`, {userId: auth.user.id, comment: comment})
           .then(response => {
             navigate(0);
           })

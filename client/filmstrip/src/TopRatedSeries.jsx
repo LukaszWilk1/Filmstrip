@@ -13,7 +13,7 @@ const TopRatedSeries = () => {
     const [trendingSeries, setTrendingSeries] = useState([]);
 
     useEffect(() => {
-        axios.get("https://filmstrip.onrender.com/api/series")
+        axios.get("/api/series")
         .then(response => {
             setTrendingSeries(response.data.results)
         })

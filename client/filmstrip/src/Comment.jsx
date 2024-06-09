@@ -15,7 +15,7 @@ const Comment = prop => {
     };
 
     const handleDeleteClick = () => {
-        axios.delete(`https://filmstrip.onrender.com/api/movie/${prop.movieId}`, {params: {commentId: prop.commentId}})
+        axios.delete(`/api/movie/${prop.movieId}`, {params: {commentId: prop.commentId}})
         .then(response => {
             window.location.reload();
           })
@@ -32,7 +32,7 @@ const Comment = prop => {
         if(comment!==''){
           setIsCommentInputEmpty(false);
           setComment('');
-          axios.put(`https://filmstrip.onrender.com/api/movie/${prop.movieId}`, {commentId: prop.commentId, newComment: comment})
+          axios.put(`/api/movie/${prop.movieId}`, {commentId: prop.commentId, newComment: comment})
             .then(response => {
               window.location.reload();
             })

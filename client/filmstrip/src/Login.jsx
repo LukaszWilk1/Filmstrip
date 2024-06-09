@@ -20,7 +20,7 @@ const Login = () => {
   const handleLoginClick = () => {
       if (loginData.login !== '' && loginData.password !== '') {
           setAreInputsEmpty(false);
-          axios.post('/login', { ...loginData })
+          axios.post('/api/login', { ...loginData })
               .then(response => {
                   if (!response.data.wrongUser) {
                       setWrongUser(false);
