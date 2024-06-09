@@ -1,8 +1,10 @@
+version: '3.9'
 services:
   database:
     image: postgres
     container_name: db
     volumes: 
+      - db_data:/var/lib/postgresql/data
       - ./db/db.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - 5432:5432
@@ -21,7 +23,7 @@ services:
     volumes:
       - ./client/filmstrip/src:/app/src
       - ./client/filmstrip/public:/app/public
-      - /app/node_modules
+      - node_modules_frontend:/app/node_modules
     ports:
       - 3000:3000
     environment:
@@ -38,13 +40,17 @@ services:
     env_file:
       - ./server/.env
     volumes:
-      - /app/node_modules
+      - node_modules_backend:/app/node_modules
       - ./server/src:/app/src
     ports:
       - 3001:3001
     networks:
       - backend-network
       - frontend-network
+volumes:
+  db_data:
+  node_modules_frontend:
+  node_modules_backend:
 networks:
   backend-network:
     ipam:
