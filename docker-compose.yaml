@@ -11,18 +11,8 @@ services:
       POSTGRES_USER: postgres
     env_file:
       - ./db/.env
-  backend:
-    container_name: backend
-    build:
-      context: ./server
-      dockerfile: Dockerfile
-    env_file:
-      - ./server/.env
-    volumes:
-      - /app/node_modules
-      - ./server:/app
-    ports:
-      - 3001:3001
+    networks:
+      - backend-network
   frontend:
     container_name: frontend
     build:
@@ -38,3 +28,31 @@ services:
       - WDS_SOCKET_HOST=127.0.0.1 
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
+    networks:
+      - frontend-network
+  backend:
+    container_name: backend
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    env_file:
+      - ./server/.env
+    volumes:
+      - /app/node_modules
+      - ./server/src:/app/src
+    ports:
+      - 3001:3001
+    networks:
+      - backend-network
+      - frontend-network
+networks:
+  backend-network:
+    ipam:
+      config:
+        - subnet: 172.38.109.0/24
+          gateway: 172.38.109.1
+  frontend-network:
+    ipam:
+      config:
+        - subnet: 172.58.109.0/24
+          gateway: 172.58.109.1
