@@ -24,7 +24,7 @@ const PasswordChange = () => {
         if(changePasswordData.newPassword === changePasswordData.repeatedPassword){
             setArePasswordsDifferent(false);
             const login = auth.user.login;
-            axios.post("/api/passwordChange", {...changePasswordData, login})
+            axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/passwordChange`, {...changePasswordData, login})
             .then(response => {
                 navigate("/");
             })

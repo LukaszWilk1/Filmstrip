@@ -34,7 +34,7 @@ const Register = () => {
           document.getElementById("registerButton").disabled=true;
           document.getElementById("backButton").disabled=true;
           setArePasswordsDifferent(false);
-          axios.post('/api/register', {...regiserData})
+          axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/register`, {...regiserData})
           .then(response => {
             document.getElementById("loginInput").disabled=false;
               document.getElementById("password").disabled=false;

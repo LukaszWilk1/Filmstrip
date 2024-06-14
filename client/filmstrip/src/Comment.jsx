@@ -15,7 +15,7 @@ const Comment = prop => {
     };
 
     const handleDeleteClick = () => {
-        axios.delete(`/api/movie/${prop.movieId}`, {params: {commentId: prop.commentId}})
+        axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/movie/${prop.movieId}`, {params: {commentId: prop.commentId}})
         .then(response => {
             window.location.reload();
           })
@@ -32,7 +32,7 @@ const Comment = prop => {
         if(comment!==''){
           setIsCommentInputEmpty(false);
           setComment('');
-          axios.put(`/api/movie/${prop.movieId}`, {commentId: prop.commentId, newComment: comment})
+          axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/movie/${prop.movieId}`, {commentId: prop.commentId, newComment: comment})
             .then(response => {
               window.location.reload();
             })

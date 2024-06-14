@@ -20,7 +20,7 @@ const Login = () => {
   const handleLoginClick = () => {
       if (loginData.login !== '' && loginData.password !== '') {
           setAreInputsEmpty(false);
-          axios.post('/api/login', { ...loginData })
+          axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/login`, { ...loginData })
               .then(response => {
                   if (!response.data.wrongUser) {
                       setWrongUser(false);

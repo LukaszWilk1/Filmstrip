@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --legacy-watch main"
+    "dev": "nodemon --legacy-watch main",
+    "start": "node src/index.js"
   },
   "author": "",
   "license": "ISC",

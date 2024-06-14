@@ -22,7 +22,7 @@ const Movie = () => {
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
-        axios.get(`/api/movie/${params.movieId}`)
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/movie/${params.movieId}`)
         .then(response => {
           setMovieData(response.data.movieData);
           setComments(response.data.comments);
@@ -44,7 +44,7 @@ const Movie = () => {
       if(comment!==''){
         setIsCommentInputEmpty(false);
         setComment('');
-        axios.post(`/api/movie/${params.movieId}` , {userId: auth.user.id, comment: comment})
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/movie/${params.movieId}` , {userId: auth.user.id, comment: comment})
           .then(response => {
             window.location.reload();
           })
