@@ -13,7 +13,7 @@ const TopRatedSeries = () => {
     const [trendingSeries, setTrendingSeries] = useState([]);
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/series`)
+        axios.get(`/api/series`)
         .then(response => {
             setTrendingSeries(response.data.results)
         })

@@ -13,7 +13,7 @@ const Home = () => {
     const [trendingMovies, setTrendingMovies] = useState([]);
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_BACKEND_URL}/api`)
+        axios.get(`/api`)
         .then(response => {
             console.log(response);
             setTrendingMovies(response.data.results)

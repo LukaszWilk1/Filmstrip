@@ -17,7 +17,7 @@ const Search = () => {
 
   const searchFunction = (search) => {
     setLoading(true);
-    axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/search`, { search })
+    axios.post(`/api/search`, { search })
       .then(response => {
         setResults(response.data.results);
         setLoading(false);

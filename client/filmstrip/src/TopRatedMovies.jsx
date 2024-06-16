@@ -13,7 +13,7 @@ const TopRatedMovies = () => {
     const [topRatedMovies, setTopRatedMovies] = useState([]);
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/movies`)
+        axios.get(`/api/movies`)
         .then(response => {
             setTopRatedMovies(response.data.results)
         })

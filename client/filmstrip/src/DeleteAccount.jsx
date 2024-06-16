@@ -18,7 +18,7 @@ const DeleteAccount = () => {
 
       if(password !== ''){
         setIsInputEmpty(true);
-        axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/deleteAccount`, {params: {login: auth.user.login, password: password}})
+        axios.delete(`/api/deleteAccount`, {params: {login: auth.user.login, password: password}})
         .then(response => {
             if(response.data.isPasswordCorrect){
                 setIsPasswordCorrect(true);
