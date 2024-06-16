@@ -8,7 +8,7 @@ git clone https://github.com/LukaszWilk1/Filmstrip.git
 ```
 Install Dependecies (while in root folder)
 ```
-cd Filmstrip/client/filmstrip && npm install && cd ../...server && npm install
+cd Filmstrip/client/filmstrip && npm install && cd ../../server && npm install
 ```
 Run application in development
 ```
