@@ -5,6 +5,7 @@ services:
     image: postgres
     container_name: db
     volumes: 
+      - db_data:/var/lib/postgresql/data
       - ./db/db.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - 5432:5432
@@ -30,7 +31,7 @@ services:
       - frontend-network
 
   backend_build:
-    container_name: backend
+    container_name: backend_build
     hostname: backend
     build:
       context: ./server
@@ -43,6 +44,8 @@ services:
       - backend-network
       - frontend-network
 
+volumes:
+  db_data:
 networks:
   backend-network:
     ipam:

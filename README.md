@@ -8,11 +8,17 @@ git clone https://github.com/LukaszWilk1/Filmstrip.git
 ```
 Install Dependecies (while in root folder)
 ```
-cd Filmstrip/client/filmstrip && npm install
+cd Filmstrip/client/filmstrip && npm install && cd ../...server && npm install
 ```
-Run application
+Run application in development
 ```
-npm start
+docker compose up -d
+```
+Run application in production
+```
+docker-compose -f docker-compose.prod.yaml up --build
+```
+WARNING: BEFORE CHANGING ENVIRONMENT RUN: DOCKER CONTAINER PRUNE
 ```
 ## Tehchnologies
 🔧 Filmstrip is a fullstack application built using the PERN stack.
