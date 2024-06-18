@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Footer } from "./Footer";
-import { Navbar } from "./Navbar";
+import { Footer } from "./footer/Footer";
+import { Navbar } from "./navbar/Navbar";
 import Panel from "./Panel";
-import Loading from "./Loading";
+import Loading from "./loading/Loading";
 import axios from "axios";
 
 const Home = () => {

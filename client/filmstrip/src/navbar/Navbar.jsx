@@ -2,7 +2,7 @@ import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { NavLink } from 'react-router-dom'
 import { useLocation } from 'react-router-dom';
-import { useAuth } from './auth';
+import { useAuth } from '../auth/auth';
 import { Menu } from '@headlessui/react';
 import { Transition } from '@headlessui/react';
 import { Fragment } from 'react';

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Navbar } from "./Navbar";
-import { Footer } from "./Footer";
+import { Navbar } from "./navbar/Navbar";
+import { Footer } from "./footer/Footer";
 import axios from "axios";
-import { useAuth } from "./auth";
-import Comment from "./Comment";
+import { useAuth } from "./auth/auth";
+import Comment from "./comment/Comment";
 import { useNavigate } from "react-router-dom";
   
 const imgSrc = 'https://image.tmdb.org/t/p/w500/';

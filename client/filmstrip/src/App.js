@@ -1,17 +1,17 @@
 import React from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import PrivateRoute from './PirvateRoute';
-import Login from './Login';
+import Login from './login/Login';
 import Home from './Home';
 import Register from './Register';
-import { AuthProvider } from './auth';
+import { AuthProvider } from './auth/auth';
 import Movie from './Movie';
 import TopRatedMovies from './TopRatedMovies';
 import TopRatedSeries from './TopRatedSeries';
 import Series from './Series';
 import Search from './Search';
 import PasswordChange from './PasswordChange';
-import DeleteAccount from './DeleteAccount';
+import DeleteAccount from './delete_account/DeleteAccount';
 import NotFound from './NotFound';
 
 function App() {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { useAuth } from "./auth";
+import { useAuth } from "../auth/auth";
 
 const DeleteAccount = () => {
 

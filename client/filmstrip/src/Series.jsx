@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Navbar } from "./Navbar";
-import { Footer } from "./Footer";
+import { Navbar } from "./navbar/Navbar";
+import { Footer } from "./footer/Footer";
 import axios from "axios";
-import { useAuth } from "./auth";
+import { useAuth } from "./auth/auth";
 import SeriesComment from "./SeriesComment";
 import { useNavigate } from "react-router-dom";
   
