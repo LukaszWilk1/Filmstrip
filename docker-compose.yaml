@@ -1,0 +1,64 @@
+version: '3.9'
+services:
+  database:
+    image: postgres
+    container_name: db
+    volumes: 
+      - db_data:/var/lib/postgresql/data
+      - ./db/db.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: Kenough321
+      POSTGRES_USER: postgres
+    env_file:
+      - ./db/.env
+    networks:
+      - backend-network
+  frontend:
+    container_name: frontend
+    build:
+      context: ./client/filmstrip
+      dockerfile: Dockerfile
+    volumes:
+      - ./client/filmstrip/src:/app/src
+      - ./client/filmstrip/public:/app/public
+      - node_modules_frontend:/app/node_modules
+    ports:
+      - 3000:3000
+    environment:
+      - WDS_SOCKET_HOST=127.0.0.1 
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+    networks:
+      - frontend-network
+  backend:
+    container_name: backend
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    env_file:
+      - ./server/.env
+    volumes:
+      - node_modules_backend:/app/node_modules
+      - ./server/src:/app/src
+    ports:
+      - 3001:3001
+    networks:
+      - backend-network
+      - frontend-network
+volumes:
+  db_data:
+  node_modules_frontend:
+  node_modules_backend:
+networks:
+  backend-network:
+    ipam:
+      config:
+        - subnet: 172.38.109.0/24
+          gateway: 172.38.109.1
+  frontend-network:
+    ipam:
+      config:
+        - subnet: 172.58.109.0/24
+          gateway: 172.58.109.1

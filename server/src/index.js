@@ -12,12 +12,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const db = new pg.Client({
-    user: 'filmstrip_user',
-    host: 'dpg-cnjkquen7f5s73fa17o0-a.frankfurt-postgres.render.com',
+    user: 'postgres',
+    host: 'database',
     database: 'filmstrip',
     password: process.env.DATABASE_PASSWORD,
     port: process.env.DATABASE_PORT,
-    ssl: true
+    ssl: false
 });
 
 const options = {
@@ -28,7 +28,9 @@ const options = {
     }
   };
 
-db.connect();
+db.connect()
+.then(() => console.log('Connected to the database'))
+.catch(err => console.error('Connection error', err.stack));
 
 const saltRounds = 10;
 
@@ -40,7 +42,7 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname, '../client/filmstrip/build')));
+//app.use(express.static(path.join(__dirname, '../client/filmstrip/build')));
 
 app.get("/api", (req,res) => {
     fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)
@@ -73,7 +75,7 @@ app.get("/api/series", (req, res) => {
         });
 });
 
-app.post("/search", (req,res) => {
+app.post("/api/search", (req,res) => {
     fetch(`https://api.themoviedb.org/3/search/multi?query=${req.body.search}&include_adult=true&language=en-US&page=1`, options)
         .then(response => response.json())
         .then(response => {
@@ -224,7 +226,7 @@ app.delete("/api/series/:seriesId", async(req, res) => {
     });
 });
 
-app.post("/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
     await db.query("Select user_password, id FROM users WHERE login LIKE $1", [req.body.login], (err, resDb) => {
         if(err){
             console.log("Error: ", err.stack);
@@ -246,7 +248,7 @@ app.post("/login", async (req, res) => {
     })
 })
 
-app.post("/register", async (req, res) => {
+app.post("/api/register", async (req, res) => {
     await db.query("Select login FROM users", (err, resDb) => {
         if(err){
             console.log("Error: ", err.stack);
@@ -275,7 +277,7 @@ app.post("/register", async (req, res) => {
     });
 });
 
-app.post("/passwordChange", async(req, res) => {
+app.post("/api/passwordChange", async(req, res) => {
     await db.query("UPDATE users SET user_password = $1 WHERE login = $2", [req.body.newPassword, req.body.login]);
 
     bcrypt.hash(req.body.newPassword, saltRounds, async (err, hash) => {
@@ -288,7 +290,7 @@ app.post("/passwordChange", async(req, res) => {
     });
 });
 
-app.delete("/deleteAccount", async(req, res) => {
+app.delete("/api/deleteAccount", async(req, res) => {
     await db.query("Select user_password, id FROM users WHERE login LIKE $1", [req.query.login], (err, resDb) => {
         if(err){
             console.log("Error: ", err.stack);

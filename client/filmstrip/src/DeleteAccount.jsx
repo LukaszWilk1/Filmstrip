@@ -18,7 +18,7 @@ const DeleteAccount = () => {
 
       if(password !== ''){
         setIsInputEmpty(true);
-        axios.delete("https://filmstrip.onrender.com/deleteAccount", {params: {login: auth.user.login, password: password}})
+        axios.delete(`/api/deleteAccount`, {params: {login: auth.user.login, password: password}})
         .then(response => {
             if(response.data.isPasswordCorrect){
                 setIsPasswordCorrect(true);

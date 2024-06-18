@@ -1,0 +1,59 @@
+version: '3.9'
+
+services:
+  database:
+    image: postgres
+    container_name: db
+    volumes: 
+      - db_data:/var/lib/postgresql/data
+      - ./db/db.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: Kenough321
+      POSTGRES_USER: postgres
+    env_file:
+      - ./db/.env
+    networks:
+      - backend-network
+
+  frontend_build:
+    container_name: frontend_build
+    hostname: frontend
+    build:
+      context: ./client/filmstrip
+      dockerfile: prod.Dockerfile
+    ports:
+      - 80:80
+    environment:
+      - REACT_APP_BACKEND_URL=''
+    networks:
+      - frontend-network
+
+  backend_build:
+    container_name: backend_build
+    hostname: backend
+    build:
+      context: ./server
+      dockerfile: prod.Dockerfile
+    env_file:
+      - ./server/.env
+    ports:
+      - 3001:3001
+    networks:
+      - backend-network
+      - frontend-network
+
+volumes:
+  db_data:
+networks:
+  backend-network:
+    ipam:
+      config:
+        - subnet: 172.38.109.0/24
+          gateway: 172.38.109.1
+  frontend-network:
+    ipam:
+      config:
+        - subnet: 172.58.109.0/24
+          gateway: 172.58.109.1

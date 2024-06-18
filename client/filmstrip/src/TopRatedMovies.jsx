@@ -13,7 +13,7 @@ const TopRatedMovies = () => {
     const [topRatedMovies, setTopRatedMovies] = useState([]);
 
     useEffect(() => {
-        axios.get("https://filmstrip.onrender.com/api/movies")
+        axios.get(`/api/movies`)
         .then(response => {
             setTopRatedMovies(response.data.results)
         })

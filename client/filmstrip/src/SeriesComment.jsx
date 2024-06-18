@@ -15,7 +15,7 @@ const SeriesComment = prop => {
     };
 
     const handleDeleteClick = () => {
-        axios.delete(`https://filmstrip.onrender.com/api/series/${prop.seriesId}`, {params: {commentId: prop.commentId}})
+        axios.delete(`/api/series/${prop.seriesId}`, {params: {commentId: prop.commentId}})
         .then(response => {
             window.location.reload();
           })
@@ -32,7 +32,7 @@ const SeriesComment = prop => {
         if(comment!==''){
           setIsCommentInputEmpty(false);
           setComment('');
-          axios.put(`https://filmstrip.onrender.com/api/series/${prop.seriesId}`, {commentId: prop.commentId, newComment: comment})
+          axios.put(`/api/series/${prop.seriesId}`, {commentId: prop.commentId, newComment: comment})
             .then(response => {
               window.location.reload();
             })
