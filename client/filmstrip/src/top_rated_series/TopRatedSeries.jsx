@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Footer } from "./footer/Footer";
-import { Navbar } from "./navbar/Navbar";
-import SeriesPanel from "./SeriesPanel";
-import Loading from "./loading/Loading";
+import { Footer } from "../footer/Footer";
+import { Navbar } from "../navbar/Navbar";
+import SeriesPanel from "../series_panel/SeriesPanel";
+import Loading from "../loading/Loading";
 import axios from "axios";
 
 const TopRatedSeries = () => {

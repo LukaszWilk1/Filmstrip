@@ -1,30 +1,31 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Navbar } from "./navbar/Navbar";
-import { Footer } from "./footer/Footer";
+import { Navbar } from "../navbar/Navbar";
+import { Footer } from "../footer/Footer";
 import axios from "axios";
-import { useAuth } from "./auth/auth";
-import Comment from "./comment/Comment";
+import { useAuth } from "../auth/auth";
+import SeriesComment from "../series_comment/SeriesComment";
 import { useNavigate } from "react-router-dom";
   
 const imgSrc = 'https://image.tmdb.org/t/p/w500/';
 
-const Movie = () => {
+const Series = () => {
 
     const auth = useAuth();
     const navigate = useNavigate();
     const params = useParams();
 
-    const [movieData, setMovieData] = useState();
+    const [seriesData, setSeriesData] = useState();
     const [isWritingComment, setIsWritingComment] = useState(false);
     const [comment, setComment] = useState('');
     const [isCommentInputEmpty, setIsCommentInputEmpty] = useState(false);
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
-        axios.get(`/api/movie/${params.movieId}`)
+
+        axios.get(`/api/series/${params.seriesId}`)
         .then(response => {
-          setMovieData(response.data.movieData);
+          setSeriesData(response.data.movieData);
           setComments(response.data.comments);
         })
         .catch(err => {
@@ -44,9 +45,9 @@ const Movie = () => {
       if(comment!==''){
         setIsCommentInputEmpty(false);
         setComment('');
-        axios.post(`/api/movie/${params.movieId}` , {userId: auth.user.id, comment: comment})
+        axios.post(`/api/series/${params.seriesId}`, {userId: auth.user.id, comment: comment})
           .then(response => {
-            window.location.reload();
+            navigate(0);
           })
           .catch(function (error) {
             console.log(error);
@@ -61,16 +62,16 @@ const Movie = () => {
           <Navbar />
           <div id="movie/series component" className="md:grid md:grid-cols-3 py-8">
             <div className="">
-              {movieData && <img src={imgSrc + movieData.poster_path} alt={movieData.title} className="w-[75%] mx-auto" />}
+              {seriesData && <img src={imgSrc + seriesData.poster_path} alt={seriesData.title} className="w-[75%] mx-auto" />}
             </div>
 
-            {movieData && <div className="col-span-2 mr-auto px-4 md:w-[50%] max-w-[100vw]">
-              <h1 className="text-[#ffd500] text-[3.5rem]">{movieData.title}</h1>
-              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">{movieData.tagline}</p>
-              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Overviev: {movieData.overview}</p>
-              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Rating: {movieData.vote_average}</p>
-              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Genres: {movieData.genres && movieData.genres.map((genre, index) => (<span key={index}>{genre.name}{index !== movieData.genres.length - 1 && ", "}</span>))}</p>
-              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Budget: {movieData.budget}$</p></div>}
+            {seriesData && <div className="col-span-2 mr-auto px-4 md:w-[50%] max-w-[100vw]">
+              <h1 className="text-[#ffd500] text-[3.5rem]">{seriesData.name}</h1>
+              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">{seriesData.tagline}</p>
+              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Overviev: {seriesData.overview}</p>
+              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Rating: {seriesData.vote_average}</p>
+              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Genres: {seriesData.genres.map((genre, index) => (<span key={index}>{genre.name}{index !== seriesData.genres.length - 1 && ", "}</span>))}</p>
+              <p className="text-white mt-8 border-b-[1px] border-[#ffd500]">Seasons: {seriesData.seasons.length-1}</p></div>}
             </div>
             <div id="comments" className="bg-white grid grid-cols-2 p-8 gap-2">
                 <div>
@@ -94,7 +95,7 @@ const Movie = () => {
                   <button className="border border-[#18191A] mt-4 px-6 rounded-md hover:bg-[#18191A] hover:text-white" onClick={handleSendCommentClick}>SEND</button>
                 </div> : <></>}
 
-                {comments && comments.map((comment, index) => (<Comment key={index} login={comment.login} comment={comment.comment_text} commentId={comment.comment_id} movieId={params.movieId}></Comment>))}
+                {comments && comments.map((comment, index) => (<SeriesComment key={index} login={comment.login} comment={comment.comment_text} commentId={comment.comment_id} movieId={params.movieId}></SeriesComment>))}
 
             </div>
           <Footer />
@@ -103,4 +104,4 @@ const Movie = () => {
       
 }
 
-export default Movie;
+export default Series;

@@ -1,4 +1,4 @@
-import { useAuth } from "./auth/auth";
+import { useAuth } from "../auth/auth";
 import { useState } from "react";
 import axios from "axios";
 

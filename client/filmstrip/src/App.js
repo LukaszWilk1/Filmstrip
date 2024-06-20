@@ -1,18 +1,18 @@
 import React from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import PrivateRoute from './PirvateRoute';
+import PrivateRoute from './private_route/PirvateRoute';
 import Login from './login/Login';
-import Home from './Home';
-import Register from './Register';
+import Home from './home/Home';
+import Register from './register/Register';
 import { AuthProvider } from './auth/auth';
-import Movie from './Movie';
-import TopRatedMovies from './TopRatedMovies';
-import TopRatedSeries from './TopRatedSeries';
-import Series from './Series';
-import Search from './Search';
-import PasswordChange from './PasswordChange';
+import Movie from './movie/Movie';
+import TopRatedMovies from './top_rated_movies/TopRatedMovies';
+import TopRatedSeries from './top_rated_series/TopRatedSeries';
+import Series from './series/Series';
+import Search from './search/Search';
+import PasswordChange from './password_change/PasswordChange';
 import DeleteAccount from './delete_account/DeleteAccount';
-import NotFound from './NotFound';
+import NotFound from './not_found/NotFound';
 
 function App() {
   return (
