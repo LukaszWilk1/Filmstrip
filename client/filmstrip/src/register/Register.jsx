@@ -12,30 +12,29 @@ const Register = () => {
     repeatedPassword: "",
   });
 
-  const auth = useAuth();
+  const [registerErrors, setRegisterErrors] = useState('');
 
-  const [areInputsEmpty, setAreInputsEmpty] = useState(false);
-  const [arePasswordsDifferent, setArePasswordsDifferent] = useState(false);
-  const [isLoginTaken, setIsLoginTaken] = useState(false);
+  const auth = useAuth();
 
   const handleBackClick = () => {
     navigate("/login");
   };
 
   const handleRegisterClick = () => {
+    setRegisterErrors('');
     if (
       regiserData.login !== "" &&
       regiserData.password !== "" &&
       regiserData.repeatedPassword !== ""
     ) {
-      setAreInputsEmpty(false);
+      //setAreInputsEmpty(false);
       if (regiserData.password === regiserData.repeatedPassword) {
         document.getElementById("loginInput").disabled = true;
         document.getElementById("password").disabled = true;
         document.getElementById("repeatedPassword").disabled = true;
         document.getElementById("registerButton").disabled = true;
         document.getElementById("backButton").disabled = true;
-        setArePasswordsDifferent(false);
+        //setArePasswordsDifferent(false);
         axios
           .post(`/api/register`, { ...regiserData })
           .then((response) => {
@@ -45,12 +44,13 @@ const Register = () => {
             document.getElementById("registerButton").disabled = false;
             document.getElementById("backButton").disabled = false;
             if (response.data.isLoginTaken) {
-              setIsLoginTaken(true);
+              //setIsLoginTaken(true);
+              setRegisterErrors('Login is taken! Please choose somthing else');
             } else if (!response.data.isLoginTaken) {
               auth.login(response.data);
               window.localStorage.setItem("isLoggedIn", response.data.login);
               navigate("/");
-              setIsLoginTaken(false);
+              //setIsLoginTaken(false);
               document.getElementById("login").value = "";
               document.getElementById("password").value = "";
               document.getElementById("repeatedPassword").value = "";
@@ -65,11 +65,13 @@ const Register = () => {
             console.log(error);
           });
       } else {
-        setAreInputsEmpty(false);
-        setArePasswordsDifferent(true);
+        //setAreInputsEmpty(false);
+        //setArePasswordsDifferent(true);
+        setRegisterErrors('Passwords are not the same!');
       }
     } else {
-      setAreInputsEmpty(true);
+      //setAreInputsEmpty(true);
+      setRegisterErrors('You must enter data into all fields!')
     }
   };
 
@@ -174,29 +176,9 @@ const Register = () => {
           </div>
         </div>
 
-        <div>
-          {areInputsEmpty ? (
-            <p className="text-red-600 text-center">
-              You must enter data into all fields!
-            </p>
-          ) : (
-            <></>
-          )}
-          {arePasswordsDifferent ? (
-            <p className="text-red-600 text-center">
-              Passwords are not the same!
-            </p>
-          ) : (
-            <></>
-          )}
-          {isLoginTaken ? (
-            <p className="text-red-600 text-center">
-              Login is taken! Please choose somthing else
-            </p>
-          ) : (
-            <></>
-          )}
-        </div>
+        <p className="text-red-600 text-center">
+          {registerErrors}
+        </p>
 
         <div>
           <button
