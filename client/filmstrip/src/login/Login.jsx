@@ -25,7 +25,7 @@ const Login = () => {
         .then((response) => {
           if (!response.data.wrongUser) {
             if (!response.data.isPasswordCorrect)
-              setLoginErrors("wrongPassword");
+              setLoginErrors("Wrong password!");
             else {
               //setIsPasswordWrong(false);
               auth.login(response.data);
@@ -33,13 +33,13 @@ const Login = () => {
             }
           } else {
             //setWrongUser(true);
-            setLoginErrors("wrongLogin");
+            setLoginErrors("There is no user with this login!");
           }
         })
         .catch((error) => console.error(error));
     } else {
       //setAreInputsEmpty(true);
-      setLoginErrors("emptyInputs");
+      setLoginErrors('You must enter data into all fields!');
     }
   };
 
@@ -113,8 +113,10 @@ const Login = () => {
             ></input>
           </div>
         </div>
-
-        <LoginErrors errorType={loginErrors}></LoginErrors>
+        
+        <p className="text-red-600 text-center">
+          {loginErrors}
+        </p>
 
         <div>
           <button
