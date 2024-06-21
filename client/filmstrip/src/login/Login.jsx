@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/auth.jsx";
-import LoginErrors from "../loginErrors/LoginErrors.jsx";
 import axios from "axios";
 
 const Login = () => {
@@ -113,7 +112,7 @@ const Login = () => {
             ></input>
           </div>
         </div>
-        
+
         <p className="text-red-600 text-center">
           {loginErrors}
         </p>
