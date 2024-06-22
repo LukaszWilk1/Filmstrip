@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../auth/auth";
+import { useLayoutEffect } from "react";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -13,6 +14,12 @@ const Register = () => {
   });
 
   const [registerErrors, setRegisterErrors] = useState('');
+  const [isWaiting, setIsWaiting] = useState(false);
+  const [areInputsIncorrect, setAreInputsIncorrect] = useState(true);
+
+  useLayoutEffect(() => {
+    regiserData.password.length < 8? setAreInputsIncorrect(false) : setAreInputsIncorrect(true);
+  }, [regiserData.password])
 
   const auth = useAuth();
 
@@ -21,6 +28,7 @@ const Register = () => {
   };
 
   const handleRegisterClick = () => {
+    setIsWaiting(true);
     setRegisterErrors('');
     if (
       regiserData.login !== "" &&
@@ -29,31 +37,38 @@ const Register = () => {
     ) {
       //setAreInputsEmpty(false);
       if (regiserData.password === regiserData.repeatedPassword) {
-        document.getElementById("loginInput").disabled = true;
+        //document.getElementById("loginInput").disabled = true;
+        /*
         document.getElementById("password").disabled = true;
         document.getElementById("repeatedPassword").disabled = true;
         document.getElementById("registerButton").disabled = true;
         document.getElementById("backButton").disabled = true;
+        */
         //setArePasswordsDifferent(false);
         axios
           .post(`/api/register`, { ...regiserData })
           .then((response) => {
-            document.getElementById("loginInput").disabled = false;
+            //document.getElementById("loginInput").disabled = false;
+            /*
             document.getElementById("password").disabled = false;
             document.getElementById("repeatedPassword").disabled = false;
             document.getElementById("registerButton").disabled = false;
             document.getElementById("backButton").disabled = false;
+            */
             if (response.data.isLoginTaken) {
               //setIsLoginTaken(true);
               setRegisterErrors('Login is taken! Please choose somthing else');
+              setIsWaiting(false);
             } else if (!response.data.isLoginTaken) {
               auth.login(response.data);
               window.sessionStorage.setItem("isLoggedIn", response.data.login);
               navigate("/");
               //setIsLoginTaken(false);
+              /*
               document.getElementById("login").value = "";
               document.getElementById("password").value = "";
               document.getElementById("repeatedPassword").value = "";
+              */
               setRegisterData({
                 login: "",
                 password: "",
@@ -68,10 +83,12 @@ const Register = () => {
         //setAreInputsEmpty(false);
         //setArePasswordsDifferent(true);
         setRegisterErrors('Passwords are not the same!');
+        setIsWaiting(false);
       }
     } else {
       //setAreInputsEmpty(true);
-      setRegisterErrors('You must enter data into all fields!')
+      setRegisterErrors('You must enter data into all fields!');
+      setIsWaiting(false);
     }
   };
 
@@ -115,7 +132,7 @@ const Register = () => {
             htmlFor="email"
             className="block text-sm font-medium leading-6 color-yellow"
           >
-            Login
+            User's Login
           </label>
           <div className="mt-2">
             <input
@@ -124,6 +141,7 @@ const Register = () => {
               name="login"
               value={regiserData.login}
               onChange={handleInputChange}
+              disabled = {isWaiting}
               required
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"
             ></input>
@@ -147,6 +165,7 @@ const Register = () => {
               value={regiserData.password}
               onChange={handleInputChange}
               autoComplete="current-password"
+              disabled = {isWaiting}
               required
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"
             ></input>
@@ -170,6 +189,7 @@ const Register = () => {
               value={regiserData.repeatedPassword}
               onChange={handleInputChange}
               autoComplete="current-password"
+              disabled = {isWaiting}
               required
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"
             ></input>
@@ -180,20 +200,26 @@ const Register = () => {
           {registerErrors}
         </p>
 
+        <p className="text-gray-500 text-center">
+        Your password must consist of at least 8 letters!
+        </p>
+
         <div>
           <button
             id="registerButton"
             type="submit"
+            disabled = {isWaiting || !areInputsIncorrect}
             className="flex w-full justify-center rounded-md button-color px-3 py-1.5 text-sm font-semibold leading-6 color-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             onClick={handleRegisterClick}
           >
-            Register
+            Sign Up
           </button>
         </div>
         <div>
           <button
             id="backButton"
             type="button"
+            disabled = {isWaiting}
             className="flex w-full justify-center rounded-md button-color px-3 py-1.5 text-sm font-semibold leading-6 color-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             onClick={handleBackClick}
           >
