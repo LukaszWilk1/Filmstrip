@@ -7,7 +7,7 @@ import axios from "axios";
 
 const TopRatedMovies = () => {
 
-    window.localStorage.setItem("search", '');
+    window.sessionStorage.setItem("search", '');
 
     const [loading, setLoading] = useState(true);
     const [topRatedMovies, setTopRatedMovies] = useState([]);

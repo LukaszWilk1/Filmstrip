@@ -48,7 +48,7 @@ const Register = () => {
               setRegisterErrors('Login is taken! Please choose somthing else');
             } else if (!response.data.isLoginTaken) {
               auth.login(response.data);
-              window.localStorage.setItem("isLoggedIn", response.data.login);
+              window.sessionStorage.setItem("isLoggedIn", response.data.login);
               navigate("/");
               //setIsLoginTaken(false);
               document.getElementById("login").value = "";

@@ -7,7 +7,7 @@ import axios from "axios";
 
 const TopRatedSeries = () => {
 
-    window.localStorage.setItem("search", '');
+    window.sessionStorage.setItem("search", '');
 
     const [loading, setLoading] = useState(true);
     const [trendingSeries, setTrendingSeries] = useState([]);

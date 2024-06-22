@@ -9,7 +9,7 @@ import axios from "axios";
 const Search = () => {
   const [results, setResults] = useState([]);
   const [searchInput, setSearchInput] = useState(() => {
-    const search = window.localStorage.getItem("search");
+    const search = window.sessionStorage.getItem("search");
     return search || ''
   });
   const [isInputEmpty, setIsInputEmpty] = useState(true);
@@ -29,7 +29,7 @@ const Search = () => {
   };
 
   useEffect(() => {
-    const search = window.localStorage.getItem("search");
+    const search = window.sessionStorage.getItem("search");
     if (search) {
       searchFunction(search);
     }
@@ -42,7 +42,7 @@ const Search = () => {
   const handleButtonClick = () => {
     if (searchInput !== '') {
       setIsInputEmpty(true);
-      window.localStorage.setItem("search", searchInput);
+      window.sessionStorage.setItem("search", searchInput);
       searchFunction(searchInput);
     } else {
       setIsInputEmpty(false);
