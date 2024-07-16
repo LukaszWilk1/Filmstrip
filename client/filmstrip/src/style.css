@@ -44,8 +44,8 @@ body{
     color: #fdc500;
 }
 
-#loginButton:hover, #registerButton:hover{
-    background-color: #ffd500;
+#loginButton:hover, #registerButton:hover, #backButton:hover{
+    background-color: #AA9739;
 }
 
 .color-black{
