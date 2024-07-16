@@ -127,7 +127,7 @@ const Register = () => {
             Register
           </h2>
         </div>
-        <div>
+        <>
           <label
             htmlFor="email"
             className="block text-sm font-medium leading-6 color-yellow"
@@ -146,7 +146,7 @@ const Register = () => {
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"
             ></input>
           </div>
-        </div>
+        </>
 
         <div>
           <div className="flex items-center justify-between">
@@ -172,7 +172,7 @@ const Register = () => {
           </div>
         </div>
 
-        <div>
+        <>
           <div className="flex items-center justify-between">
             <label
               htmlFor="password"
@@ -194,7 +194,7 @@ const Register = () => {
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"
             ></input>
           </div>
-        </div>
+        </>
 
         <p className="text-red-600 text-center">
           {registerErrors}
@@ -204,7 +204,7 @@ const Register = () => {
         Your password must consist of at least 8 letters!
         </p>
 
-        <div>
+        <>
           <button
             id="registerButton"
             type="submit"
@@ -214,8 +214,8 @@ const Register = () => {
           >
             Sign Up
           </button>
-        </div>
-        <div>
+        </>
+        <>
           <button
             id="backButton"
             type="button"
@@ -225,7 +225,7 @@ const Register = () => {
           >
             Back
           </button>
-        </div>
+        </>
       </div>
     </div>
   );

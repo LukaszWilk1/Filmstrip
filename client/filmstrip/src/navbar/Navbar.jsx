@@ -68,7 +68,7 @@ export const Navbar = () => {
               </div>
 
               <Menu as="div" className="relative ml-3 mr-3">
-                  <div>
+                  <>
                     <Menu.Button className="relative flex rounded-md bg-[#997f00] px-4 py-1.5">
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
@@ -76,7 +76,7 @@ export const Navbar = () => {
                           {auth.user.login}
                         </div>
                     </Menu.Button>
-                  </div>
+                  </>
                   <Transition
                     as={Fragment}
                     enter="transition ease-out duration-100"

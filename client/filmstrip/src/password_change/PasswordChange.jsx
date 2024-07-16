@@ -58,32 +58,32 @@ const PasswordChange = () => {
     <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight color-yellow">Change Password</h2>
     </div>
 
-      <div>
+      <>
         <div className="flex items-center justify-between">
           <label htmlFor="password" className="block text-sm font-medium leading-6 color-yellow">New Password</label>
         </div>
         <div className="mt-2">
         <input id="password" name="newPassword" type="password" value={changePasswordData.newPassword} onChange={handleInputChange} autoComplete="current-password" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"></input>
         </div>
-      </div>
+      </>
 
-      <div>
+      <>
         <div className="flex items-center justify-between">
           <label htmlFor="password" className="block text-sm font-medium leading-6 color-yellow">Repeat Password</label>
         </div>
         <div className="mt-2">
           <input id="repeatedPassword" name="repeatedPassword" type="password" value={changePasswordData.repeatedPassword} onChange={handleInputChange} autoComplete="current-password" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"></input>
         </div>
-      </div>
+      </>
 
-      <div>
+      <>
         {areInputsEmpty ? <></> : <p className="text-red-600 text-center">You must enter data into all fields!</p>}
         {arePasswordsDifferent ? <p className="text-red-600 text-center">Passwords are not the same!</p> : <></>}
-      </div>
+      </>
 
-      <div>
+      <>
         <button id="registerButton" type="submit" className="flex w-full justify-center rounded-md button-color px-3 py-1.5 text-sm font-semibold leading-6 color-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" onClick={handleChangePasswordClick}>Change Password</button>
-      </div>
+      </>
   </div>
 </div>
 

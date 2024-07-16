@@ -38,7 +38,7 @@ const Login = () => {
         .catch((error) => console.error(error));
     } else {
       //setAreInputsEmpty(true);
-      setLoginErrors('You must enter data into all fields!');
+      setLoginErrors("You must enter data into all fields!");
     }
   };
 
@@ -71,7 +71,7 @@ const Login = () => {
             FILMSTRIP
           </h2>
         </div>
-        <div>
+        <>
           <label
             htmlFor="email"
             className="block text-sm font-medium leading-6 color-yellow"
@@ -88,9 +88,9 @@ const Login = () => {
               value={loginData.login}
             ></input>
           </div>
-        </div>
+        </>
 
-        <div>
+        <>
           <div className="flex items-center justify-between">
             <label
               htmlFor="password"
@@ -111,13 +111,11 @@ const Login = () => {
               value={loginData.password}
             ></input>
           </div>
-        </div>
+        </>
 
-        <p className="text-red-600 text-center">
-          {loginErrors}
-        </p>
+        <p className="text-red-600 text-center">{loginErrors}</p>
 
-        <div>
+        <>
           <button
             id="loginButton"
             type="button"
@@ -126,8 +124,8 @@ const Login = () => {
           >
             Sign in
           </button>
-        </div>
-        <div>
+        </>
+        <>
           <button
             id="registerButton"
             type="button"
@@ -136,7 +134,7 @@ const Login = () => {
           >
             Sign Up
           </button>
-        </div>
+        </>
       </div>
     </div>
   );

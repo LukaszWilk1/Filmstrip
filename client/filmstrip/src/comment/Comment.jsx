@@ -61,7 +61,7 @@ const Comment = prop => {
                 </p>
             )}
             {prop.login === auth.user.login ? (
-                <div>
+                <>
                     <button
                         className="border border-blue-500 rounded-md text-blue-500 px-8 py-0.5 hover:bg-blue-500 hover:text-white my-4 mr-2"
                         onClick={handleEditClick}
@@ -74,7 +74,7 @@ const Comment = prop => {
                     >
                         Delete
                     </button>
-                </div>
+                </>
             ) : (
                 <></>
             )}
