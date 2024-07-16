@@ -15,7 +15,6 @@ const Home = () => {
     axios
       .get(`/api`)
       .then((response) => {
-        console.log(response);
         setTrendingMovies(response.data.results);
       })
       .catch((err) => console.error(err))
