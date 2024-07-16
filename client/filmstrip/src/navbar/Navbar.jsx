@@ -36,7 +36,7 @@ export const Navbar = () => {
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
-                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-[#2f2f30] hover:bg-[#b29500] hover:text-black focus:outline-none">
+                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md ml-0.05 p-2 text-[#2f2f30] hover:bg-[#b29500] hover:text-black focus:outline-none">
                   <span className="absolute -inset-0.5" />
                   <span className="sr-only">Open main menu</span>
                   {open ? (
