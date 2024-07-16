@@ -13,13 +13,15 @@ const Register = () => {
     repeatedPassword: "",
   });
 
-  const [registerErrors, setRegisterErrors] = useState('');
+  const [registerErrors, setRegisterErrors] = useState("");
   const [isWaiting, setIsWaiting] = useState(false);
   const [areInputsIncorrect, setAreInputsIncorrect] = useState(true);
 
   useLayoutEffect(() => {
-    regiserData.password.length < 8? setAreInputsIncorrect(false) : setAreInputsIncorrect(true);
-  }, [regiserData.password])
+    regiserData.password.length < 8
+      ? setAreInputsIncorrect(false)
+      : setAreInputsIncorrect(true);
+  }, [regiserData.password]);
 
   const auth = useAuth();
 
@@ -29,7 +31,7 @@ const Register = () => {
 
   const handleRegisterClick = () => {
     setIsWaiting(true);
-    setRegisterErrors('');
+    setRegisterErrors("");
     if (
       regiserData.login !== "" &&
       regiserData.password !== "" &&
@@ -57,7 +59,7 @@ const Register = () => {
             */
             if (response.data.isLoginTaken) {
               //setIsLoginTaken(true);
-              setRegisterErrors('Login is taken! Please choose somthing else');
+              setRegisterErrors("Login is taken! Please choose somthing else");
               setIsWaiting(false);
             } else if (!response.data.isLoginTaken) {
               auth.login(response.data);
@@ -82,12 +84,12 @@ const Register = () => {
       } else {
         //setAreInputsEmpty(false);
         //setArePasswordsDifferent(true);
-        setRegisterErrors('Passwords are not the same!');
+        setRegisterErrors("Passwords are not the same!");
         setIsWaiting(false);
       }
     } else {
       //setAreInputsEmpty(true);
-      setRegisterErrors('You must enter data into all fields!');
+      setRegisterErrors("You must enter data into all fields!");
       setIsWaiting(false);
     }
   };
@@ -141,7 +143,7 @@ const Register = () => {
               name="login"
               value={regiserData.login}
               onChange={handleInputChange}
-              disabled = {isWaiting}
+              disabled={isWaiting}
               required
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"
             ></input>
@@ -165,7 +167,7 @@ const Register = () => {
               value={regiserData.password}
               onChange={handleInputChange}
               autoComplete="current-password"
-              disabled = {isWaiting}
+              disabled={isWaiting}
               required
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"
             ></input>
@@ -189,26 +191,24 @@ const Register = () => {
               value={regiserData.repeatedPassword}
               onChange={handleInputChange}
               autoComplete="current-password"
-              disabled = {isWaiting}
+              disabled={isWaiting}
               required
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"
             ></input>
           </div>
         </>
 
-        <p className="text-red-600 text-center">
-          {registerErrors}
-        </p>
+        <p className="text-red-600 text-center">{registerErrors}</p>
 
         <p className="text-gray-500 text-center">
-        Your password must consist of at least 8 letters!
+          Your password must consist of at least 8 letters!
         </p>
 
         <>
           <button
             id="registerButton"
             type="submit"
-            disabled = {isWaiting || !areInputsIncorrect}
+            disabled={isWaiting || !areInputsIncorrect}
             className="flex w-full justify-center rounded-md button-color px-3 py-1.5 text-sm font-semibold leading-6 color-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             onClick={handleRegisterClick}
           >
@@ -219,7 +219,7 @@ const Register = () => {
           <button
             id="backButton"
             type="button"
-            disabled = {isWaiting}
+            disabled={isWaiting}
             className="flex w-full justify-center rounded-md button-color px-3 py-1.5 text-sm font-semibold leading-6 color-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             onClick={handleBackClick}
           >
