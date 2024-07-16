@@ -36,7 +36,7 @@ export const Navbar = () => {
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
-                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md ml-0.05 p-2 text-[#2f2f30] hover:bg-[#b29500] hover:text-black focus:outline-none">
+                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md ml-2 p-2 text-[#2f2f30] hover:bg-[#b29500] hover:text-black focus:outline-none">
                   <span className="absolute -inset-0.5" />
                   <span className="sr-only">Open main menu</span>
                   {open ? (
@@ -55,8 +55,8 @@ export const Navbar = () => {
                         to={item.href}
                         className={classNames(
                           item.current
-                            ? "bg-[#997f00] color-black"
-                            : "color-black hover:bg-[#b29500] hover:text-black",
+                            ? "bg-[#807540] color-black"
+                            : "color-black hover:bg-[#AA9739] hover:text-black",
                           "rounded-md px-3 py-2 text-sm font-medium"
                         )}
                         aria-current={item.current ? "page" : undefined}
@@ -70,7 +70,7 @@ export const Navbar = () => {
 
               <Menu as="div" className="relative ml-3 mr-3">
                 <>
-                  <Menu.Button className="relative flex rounded-md bg-[#997f00] px-4 py-1.5">
+                  <Menu.Button className="relative flex rounded-md bg-[#807540] px-4 py-1.5">
                     <span className="absolute -inset-1.5" />
                     <span className="sr-only">Open user menu</span>
                     <div className="relative inset-y-0 right-0 flex items-center sm:static sm:inset-autoc sm:pr-0">
@@ -143,8 +143,8 @@ export const Navbar = () => {
                   href={item.href}
                   className={classNames(
                     item.current
-                      ? "bg-[#997f00] color-black"
-                      : "color-black hover:bg-[#b29500] hover:text-black",
+                      ? "bg-[#807540] color-black"
+                      : "color-black hover:bg-[#AA9739] hover:text-black",
                     "block rounded-md px-3 py-2 text-sm font-medium"
                   )}
                   aria-current={item.current ? "page" : undefined}
